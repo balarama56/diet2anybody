@@ -2,50 +2,48 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { 
-  Scale, 
-  Heart, 
-  Activity, 
-  Sparkles, 
-  Baby, 
+import {
+  Weight,
+  Venus,
+  Droplet,
+  ThermometerSun,
   Dumbbell,
-  ArrowRight 
+  Milk,
+  ArrowRight,
 } from 'lucide-react'
+import HairGrowthIcon from '@/components/icons/HairGrowthIcon'
+import PregnantWomanIcon from '@/components/icons/PregnantWomanIcon'
 import { services } from '@/lib/data'
+import { cn } from '@/lib/utils'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Scale,
-  Heart,
-  Activity,
-  Sparkles,
-  Baby,
+  Weight,
+  Venus,
+  Droplet,
+  ThermometerSun,
+  PregnantWoman: PregnantWomanIcon,
   Dumbbell,
+  HairGrowth: HairGrowthIcon,
+  Milk,
 }
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.08 },
   },
 }
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
 }
 
 export default function ServicesSection() {
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,22 +59,21 @@ export default function ServicesSection() {
             <span className="text-primary">Every Need</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-pretty">
-            We offer comprehensive nutrition services tailored to your specific health goals and conditions. 
+            We offer comprehensive nutrition services tailored to your specific health goals and conditions.
             Our expert dietitians create personalized plans that work for your lifestyle.
           </p>
         </motion.div>
 
-        {/* Services Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
         >
           {services.map((service) => {
-            const Icon = iconMap[service.icon] || Heart
-            
+            const Icon = iconMap[service.icon] || Weight
+
             return (
               <motion.div
                 key={service.id}
@@ -86,12 +83,15 @@ export default function ServicesSection() {
               >
                 <Link href={service.href}>
                   <div className="bg-card rounded-2xl p-8 shadow-sm border border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300 h-full">
-                    {/* Icon */}
-                    <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                      <Icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors" />
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-primary/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary">
+                      <Icon
+                        className={cn(
+                          'text-primary transition-colors group-hover:text-primary-foreground',
+                          service.id === 'pregnant' ? 'h-9 w-9' : 'h-8 w-8'
+                        )}
+                      />
                     </div>
 
-                    {/* Content */}
                     <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                       {service.title}
                     </h3>
@@ -99,7 +99,6 @@ export default function ServicesSection() {
                       {service.description}
                     </p>
 
-                    {/* Link */}
                     <div className="flex items-center text-primary font-medium">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />

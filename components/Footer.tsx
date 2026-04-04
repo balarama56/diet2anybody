@@ -14,22 +14,19 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import BrandLogo from '@/components/BrandLogo'
+import { services } from '@/lib/services'
 
 const footerLinks = {
   quickLinks: [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About Us' },
     { href: '/services', label: 'Services' },
+    { href: '/pricing', label: 'Pricing' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/contact', label: 'Contact Us' },
   ],
-  services: [
-    { href: '/weight-loss', label: 'Weight Loss Diet' },
-    { href: '/diet-plans', label: 'Diet Plans' },
-    { href: '/services', label: 'PCOS Diet' },
-    { href: '/services', label: 'Diabetes Diet' },
-    { href: '/services', label: 'Thyroid Diet' },
-  ],
+  services: services.map((s) => ({ href: s.href, label: s.title })),
 }
 
 const socialLinks = [
@@ -89,13 +86,8 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xl">D2A</span>
-                </div>
-                <div>
-                  <span className="font-bold text-xl">Diet2Anybody</span>
-                </div>
+              <div className="mb-6">
+                <BrandLogo variant="footer" />
               </div>
               <p className="text-background/70 leading-relaxed mb-6">
                 Your trusted partner for personalized nutrition and diet plans. 
@@ -147,8 +139,8 @@ export default function Footer() {
             >
               <h4 className="text-lg font-semibold mb-6">Our Services</h4>
               <ul className="space-y-3">
-                {footerLinks.services.map((link, index) => (
-                  <li key={index}>
+                {footerLinks.services.map((link) => (
+                  <li key={link.href}>
                     <Link
                       href={link.href}
                       className="text-background/70 hover:text-primary transition-colors flex items-center gap-2"
@@ -173,26 +165,25 @@ export default function Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                   <span className="text-background/70">
-                    123 Health Street, Wellness Center,<br />
-                    Mumbai, Maharashtra 400001
+                    Miyapur, Hyderabad, India
                   </span>
                 </li>
                 <li>
                   <a 
-                    href="tel:+919876543210" 
+                    href="tel:+918639137356" 
                     className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                   >
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                    +91 98765 43210
+                    +91 86391 37356
                   </a>
                 </li>
                 <li>
                   <a 
-                    href="mailto:info@diet2anybody.com" 
+                    href="mailto:alekhya@diet2anybody.com" 
                     className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                   >
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                    info@diet2anybody.com
+                    alekhya@diet2anybody.com
                   </a>
                 </li>
                 <li className="flex items-center gap-3">

@@ -5,21 +5,25 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, Mail, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import BrandLogo from '@/components/BrandLogo'
+import { services } from '@/lib/services'
+import { cn } from '@/lib/utils'
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { 
-    href: '/services', 
+  { href: '/about', label: 'About Us' },
+  {
+    href: '/services',
     label: 'Services',
-    children: [
-      { href: '/weight-loss', label: 'Weight Loss' },
-      { href: '/diet-plans', label: 'Diet Plans' },
-    ]
+    children: services.map((s) => ({
+      href: s.href,
+      label: s.title,
+    })),
   },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-]
+  { href: '/contact', label: 'Contact Us' },
+] as const
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -27,78 +31,66 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <>
-      {/* Top Bar */}
       <div className="hidden lg:block bg-primary text-primary-foreground py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:+919876543210" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <a href="tel:+918639137356" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
               <Phone className="h-4 w-4" />
-              <span>+91 98765 43210</span>
+              <span>+91 86391 37356</span>
             </a>
-            <a href="mailto:info@diet2anybody.com" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <a href="mailto:alekhya@diet2anybody.com" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
               <Mail className="h-4 w-4" />
-              <span>info@diet2anybody.com</span>
+              <span>alekhya@diet2anybody.com</span>
             </a>
           </div>
-          <div className="flex items-center gap-4">
-            <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
-          </div>
+          <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
         </div>
       </div>
 
-      {/* Main Navbar */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled 
-            ? 'bg-card/95 backdrop-blur-md shadow-lg' 
-            : 'bg-card'
-        }`}
+        className={cn(
+          'sticky top-0 z-50 transition-all duration-300',
+          scrolled ? 'bg-card/95 backdrop-blur-md shadow-lg' : 'bg-card'
+        )}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xl">D2A</span>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <span className="font-bold text-xl text-foreground">Diet2Anybody</span>
-                <p className="text-xs text-muted-foreground">Your Health Partner</p>
-              </div>
-            </Link>
+          <div className="flex items-center justify-between min-h-[5.75rem] py-2 md:min-h-[6rem] lg:min-h-[6.25rem]">
+            <BrandLogo priority />
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
-                <div 
-                  key={link.href}
+                <div
+                  key={link.label}
                   className="relative"
-                  onMouseEnter={() => link.children && setActiveDropdown(link.label)}
+                  onMouseEnter={() => 'children' in link && link.children && setActiveDropdown(link.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
                     href={link.href}
-                    className="flex items-center gap-1 px-4 py-2 text-foreground hover:text-primary transition-colors font-medium"
+                    className={cn(
+                      'relative flex items-center gap-1 px-4 py-2 text-foreground hover:text-primary transition-colors font-medium',
+                      'children' in link && link.children && activeDropdown === link.label && 'text-primary'
+                    )}
                   >
+                    {'children' in link && link.children && activeDropdown === link.label && (
+                      <span className="absolute top-0 left-2 right-2 h-0.5 rounded-full bg-primary" aria-hidden />
+                    )}
                     {link.label}
-                    {link.children && <ChevronDown className="h-4 w-4" />}
+                    {'children' in link && link.children && (
+                      <ChevronDown className="h-4 w-4 shrink-0 opacity-70" />
+                    )}
                   </Link>
-                  
-                  {/* Dropdown */}
-                  {link.children && (
+
+                  {'children' in link && link.children && (
                     <AnimatePresence>
                       {activeDropdown === link.label && (
                         <motion.div
@@ -106,17 +98,20 @@ export default function Navbar() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 w-48 bg-card rounded-lg shadow-xl border border-border py-2"
+                          className="absolute top-full left-0 z-50 min-w-[20rem] max-w-[min(100vw-2rem,22rem)] overflow-hidden rounded-md border border-border bg-card shadow-xl"
                         >
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className="block px-4 py-2 text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
+                          <div className="h-1 w-full bg-primary" aria-hidden />
+                          <div className="divide-y divide-border">
+                            {link.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className="block px-4 py-3 text-sm leading-snug text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -125,15 +120,14 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* CTA Button */}
             <div className="hidden lg:block">
               <Button asChild className="rounded-full px-6">
                 <Link href="/contact">Book Consultation</Link>
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
               aria-label="Toggle menu"
@@ -143,7 +137,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -155,7 +148,7 @@ export default function Navbar() {
             >
               <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
                 {navLinks.map((link) => (
-                  <div key={link.href}>
+                  <div key={link.label}>
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
@@ -163,14 +156,14 @@ export default function Navbar() {
                     >
                       {link.label}
                     </Link>
-                    {link.children && (
-                      <div className="ml-4 border-l-2 border-border pl-4">
+                    {'children' in link && link.children && (
+                      <div className="ml-4 border-l-2 border-primary/30 pl-4">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
                             onClick={() => setIsOpen(false)}
-                            className="block py-2 px-4 text-muted-foreground hover:text-foreground transition-colors"
+                            className="block py-2 px-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
                           >
                             {child.label}
                           </Link>

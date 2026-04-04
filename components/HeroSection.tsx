@@ -134,7 +134,7 @@ export default function HeroSection() {
                 {/* Main image */}
                 <div className="absolute inset-[10%] bg-gradient-to-br from-primary to-primary/80 rounded-full overflow-hidden shadow-2xl">
                   <Image
-                    src="/hero-dietitian.jpg"
+                    src="/hero-dietitian.webp"
                     alt="Expert Dietitian"
                     fill
                     className="object-cover"

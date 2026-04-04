@@ -1,0 +1,7 @@
+export { default as HeroBanner } from './HeroBanner'
+export { default as ServiceCard } from './ServiceCard'
+export { default as ServiceGrid } from './ServiceGrid'
+export { default as HighlightServices } from './HighlightServices'
+export { default as TransformationGallery } from './TransformationGallery'
+export { default as FAQSection } from './FAQSection'
+export { default as AppointmentCTA } from './AppointmentCTA'

@@ -6,6 +6,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/weight-loss',
+        destination: '/services/weight-loss',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

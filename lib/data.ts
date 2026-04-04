@@ -1,47 +1,4 @@
-export const services = [
-  {
-    id: 'weight-loss',
-    title: 'Weight Loss Diet',
-    description: 'Personalized weight loss programs designed to help you achieve sustainable results through balanced nutrition and lifestyle changes.',
-    icon: 'Scale',
-    href: '/weight-loss',
-  },
-  {
-    id: 'pcos',
-    title: 'PCOS Diet',
-    description: 'Specialized nutrition plans to manage PCOS symptoms, balance hormones, and improve overall reproductive health.',
-    icon: 'Heart',
-    href: '/services',
-  },
-  {
-    id: 'diabetes',
-    title: 'Diabetes Diet',
-    description: 'Expert dietary guidance for managing blood sugar levels and preventing diabetes-related complications.',
-    icon: 'Activity',
-    href: '/services',
-  },
-  {
-    id: 'thyroid',
-    title: 'Thyroid Diet',
-    description: 'Customized meal plans to support thyroid function and help manage hypothyroidism or hyperthyroidism.',
-    icon: 'Sparkles',
-    href: '/services',
-  },
-  {
-    id: 'kids',
-    title: 'Kids Nutrition',
-    description: 'Healthy eating habits and nutritious meal plans designed specifically for children\'s growth and development.',
-    icon: 'Baby',
-    href: '/services',
-  },
-  {
-    id: 'sports',
-    title: 'Sports Nutrition',
-    description: 'Performance-focused nutrition plans for athletes and fitness enthusiasts to optimize training results.',
-    icon: 'Dumbbell',
-    href: '/services',
-  },
-]
+export { services } from './services'
 
 export const programs = [
   {
@@ -95,7 +52,7 @@ export const testimonials = [
     role: 'Lost 15 kg in 4 months',
     content: 'Diet2Anybody completely transformed my relationship with food. The personalized approach made all the difference. I never felt like I was on a restrictive diet!',
     rating: 5,
-    image: '/testimonials/priya.jpg',
+    image: '/testimonials/priya.webp',
   },
   {
     id: 2,
@@ -103,7 +60,7 @@ export const testimonials = [
     role: 'Managed Diabetes Successfully',
     content: 'My blood sugar levels have been consistently normal since I started following the diet plan. The team is incredibly supportive and knowledgeable.',
     rating: 5,
-    image: '/testimonials/rahul.jpg',
+    image: '/testimonials/rahul.webp',
   },
   {
     id: 3,
@@ -111,7 +68,7 @@ export const testimonials = [
     role: 'PCOS Management',
     content: 'After years of struggling with PCOS, I finally found a diet that works. My symptoms have reduced significantly and I feel more energetic than ever.',
     rating: 5,
-    image: '/testimonials/sneha.jpg',
+    image: '/testimonials/sneha.webp',
   },
   {
     id: 4,
@@ -119,7 +76,7 @@ export const testimonials = [
     role: 'Athletic Performance',
     content: 'As a marathon runner, proper nutrition is crucial. The sports nutrition plan helped me improve my timing and recovery significantly.',
     rating: 5,
-    image: '/testimonials/amit.jpg',
+    image: '/testimonials/amit.webp',
   },
 ]
 
@@ -169,7 +126,7 @@ A nutritious diet can significantly reduce the risk of chronic conditions like h
 
 Making dietary changes doesn't have to be overwhelming. Start with small, sustainable changes and gradually build healthier habits over time. Consider consulting with a registered dietitian for personalized guidance.
     `,
-    image: '/blog/balanced-diet.jpg',
+    image: '/blog/balanced-diet.webp',
     author: 'Dr. Priya Nutritionist',
     date: '2024-01-15',
     category: 'Nutrition',
@@ -223,7 +180,7 @@ Diet plays a crucial role in managing PCOS because it directly affects insulin l
 
 Remember that diet is just one piece of the puzzle. Regular exercise, stress management, and adequate sleep are equally important for managing PCOS effectively.
     `,
-    image: '/blog/pcos-diet.jpg',
+    image: '/blog/pcos-diet.webp',
     author: 'Dr. Priya Nutritionist',
     date: '2024-01-10',
     category: 'PCOS',
@@ -278,7 +235,7 @@ Without proper guidance, it's easy to follow ineffective or even harmful diet ad
 
 **Solution:** Work with a qualified nutritionist who can create a personalized plan for your needs.
     `,
-    image: '/blog/weight-loss.jpg',
+    image: '/blog/weight-loss.webp',
     author: 'Dr. Priya Nutritionist',
     date: '2024-01-05',
     category: 'Weight Loss',

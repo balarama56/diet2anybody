@@ -42,19 +42,19 @@ const team = [
     name: 'Dr. Priya Sharma',
     role: 'Founder & Chief Nutritionist',
     bio: 'With over 15 years of experience, Dr. Priya specializes in weight management and metabolic disorders.',
-    image: '/team/priya.jpg',
+    image: '/team/priya.webp',
   },
   {
     name: 'Dt. Rahul Verma',
     role: 'Senior Dietitian',
     bio: 'Expert in sports nutrition and fitness diet plans. Certified sports nutritionist with 8+ years experience.',
-    image: '/team/rahul.jpg',
+    image: '/team/rahul.webp',
   },
   {
     name: 'Dt. Sneha Patel',
     role: 'Clinical Nutritionist',
     bio: 'Specializes in PCOS, thyroid, and hormonal health. Known for her empathetic approach to patient care.',
-    image: '/team/sneha.jpg',
+    image: '/team/sneha.webp',
   },
 ]
 
@@ -110,7 +110,7 @@ export default function AboutPageContent() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-3xl blur-2xl" />
                 <div className="relative bg-primary/10 rounded-3xl overflow-hidden aspect-square">
                   <Image
-                    src="/about-team.jpg"
+                    src="/about-team.webp"
                     alt="Our Team"
                     fill
                     className="object-cover"
@@ -289,7 +289,7 @@ export default function AboutPageContent() {
             >
               <div className="relative aspect-video bg-primary/10 rounded-3xl overflow-hidden">
                 <Image
-                  src="/why-choose-us.jpg"
+                  src="/why-choose-us.webp"
                   alt="Why Choose Diet2Anybody"
                   fill
                   className="object-cover"
