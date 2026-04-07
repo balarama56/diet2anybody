@@ -231,7 +231,7 @@ export default function ServiceProgramContent({ service }: Props) {
         </div>
       </section>
 
-      <ProgramContactSection />
+      <ProgramContactSection serviceTitle={service.title} serviceSlug={service.slug} />
 
       <ServiceProgramFAQ />
     </>

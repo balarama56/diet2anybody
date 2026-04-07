@@ -13,7 +13,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { CONTACT } from '@/lib/contact'
+import { submitLead } from '@/lib/submit-lead'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
+import { toast } from 'sonner'
 
 const contactFaqs = [
   {
@@ -79,13 +81,22 @@ export default function ContactPageContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+    try {
+      await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        service: formData.service,
+        source: 'contact',
+      })
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not send. Please try again or call us.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

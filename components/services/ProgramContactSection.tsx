@@ -4,8 +4,15 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { CONTACT } from '@/lib/contact'
+import { submitLead } from '@/lib/submit-lead'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
+import { toast } from 'sonner'
 import { EASE_OUT, viewportOnce } from './animations'
+
+type ProgramContactSectionProps = {
+  serviceTitle?: string
+  serviceSlug?: string
+}
 
 const rows = [
   {
@@ -34,7 +41,10 @@ const rows = [
   },
 ] as const
 
-export default function ProgramContactSection() {
+export default function ProgramContactSection({
+  serviceTitle,
+  serviceSlug,
+}: ProgramContactSectionProps) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSent, setIsSent] = useState(false)
@@ -42,10 +52,22 @@ export default function ProgramContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise((r) => setTimeout(r, 1200))
-    setIsSubmitting(false)
-    setIsSent(true)
-    setFormData({ name: '', email: '', phone: '' })
+    try {
+      await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        source: 'service',
+        serviceTitle: serviceTitle || undefined,
+        serviceSlug: serviceSlug || undefined,
+      })
+      setIsSent(true)
+      setFormData({ name: '', email: '', phone: '' })
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not send. Please try again or call us.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

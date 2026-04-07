@@ -5,6 +5,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
+import AppToaster from '@/components/AppToaster'
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -73,6 +74,7 @@ export default function RootLayout({
         <main>{children}</main>
         <WhatsAppFloat />
         <Footer />
+        <AppToaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

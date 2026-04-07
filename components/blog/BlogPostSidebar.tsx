@@ -6,6 +6,8 @@ import { motion } from 'framer-motion'
 import { Send, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CONTACT } from '@/lib/contact'
+import { submitLead } from '@/lib/submit-lead'
+import { toast } from 'sonner'
 
 const CATEGORIES = ['Nutrition', 'Weight Loss', 'PCOS', 'Diabetes', 'Recipes'] as const
 
@@ -27,10 +29,22 @@ export default function BlogPostSidebar({ articleTitle }: BlogPostSidebarProps) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ name: '', email: '', phone: '', message: '' })
+    try {
+      await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message || undefined,
+        source: 'blog',
+        articleTitle,
+      })
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', phone: '', message: '' })
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Could not send. Please try again or call us.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (
