@@ -1,3 +1,5 @@
+import { weightLossBlogPosts } from './weight-loss-blog-posts'
+
 export { services } from './services'
 
 export const programs = [
@@ -88,6 +90,7 @@ export const stats = [
 ]
 
 export const blogPosts = [
+  ...weightLossBlogPosts,
   {
     slug: 'benefits-of-balanced-diet',
     title: '10 Amazing Benefits of a Balanced Diet',

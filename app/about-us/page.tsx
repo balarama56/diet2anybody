@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Us | Diet2Anybody',
     description: 'Learn about Diet2Anybody - your trusted partner for personalized nutrition and diet plans.',
-    url: 'https://www.diet2anybody.com/about',
+    url: 'https://www.diet2anybody.com/about-us',
   },
 }
 

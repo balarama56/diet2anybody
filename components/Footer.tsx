@@ -2,17 +2,19 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
+import {
+  Phone,
+  Mail,
+  MapPin,
   Clock,
   Facebook,
   Instagram,
   Twitter,
   Linkedin,
-  ArrowRight
+  ArrowRight,
 } from 'lucide-react'
+import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { Button } from '@/components/ui/button'
 import BrandLogo from '@/components/BrandLogo'
 import { services } from '@/lib/services'
@@ -20,11 +22,11 @@ import { services } from '@/lib/services'
 const footerLinks = {
   quickLinks: [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About Us' },
+    { href: '/about-us', label: 'About Us' },
     { href: '/services', label: 'Services' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Contact Us' },
+    { href: CONTACT_PAGE_PATH, label: 'Contact Us' },
   ],
   services: services.map((s) => ({ href: s.href, label: s.title })),
 }
@@ -169,21 +171,32 @@ export default function Footer() {
                   </span>
                 </li>
                 <li>
-                  <a 
-                    href="tel:+918639137356" 
+                  <a
+                    href={CONTACT.phoneTel}
                     className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                   >
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                    +91 86391 37356
+                    {CONTACT.phoneDisplay}
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href="mailto:alekhya@diet2anybody.com" 
+                  <a
+                    href={CONTACT.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                  >
+                    <WhatsAppIcon className="h-4 w-4 text-white" />
+                    WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={CONTACT.mailto}
                     className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors"
                   >
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                    alekhya@diet2anybody.com
+                    {CONTACT.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-3">

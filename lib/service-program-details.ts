@@ -2,6 +2,8 @@ export type ServiceProgramDetail = {
   tagline: string
   intro: string
   benefits: { title: string; description: string }[]
+  /** Keyword-style heading + supporting copy for SEO and readers */
+  keywordSection: { heading: string; paragraphs: string[] }
   included: string[]
   idealFor: string[]
   process: { title: string; description: string }[]
@@ -57,6 +59,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'You learn to stabilize weight with flexible eating for the long term.',
       },
     ],
+    keywordSection: {
+      heading: 'Indian diet plan for weight loss that fits your lifestyle',
+      paragraphs: [
+        'An effective Indian diet plan for weight loss balances calories with the foods you already cook—roti, dal, rice, regional vegetables, and snacks—so you do not rely on bland “diet food” or impossible rules.',
+        'Our dietitians translate your goals into clear portions, smart swaps, and weekly check-ins. Whether you eat vegetarian, non-vegetarian, or mixed meals, your plan stays practical for work, travel, and family dinners.',
+      ],
+    },
   },
   pcod: {
     tagline: 'Nutrition aligned with hormone balance and insulin sensitivity',
@@ -107,6 +116,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'You build confidence to eat independently with guardrails.',
       },
     ],
+    keywordSection: {
+      heading: 'PCOD diet plan for hormone balance and steady energy',
+      paragraphs: [
+        'A thoughtful PCOD diet plan focuses on balanced plates, enough protein and fiber, and meal timing that supports steadier blood sugar—often a key piece of managing cravings, weight, and cycle-related symptoms.',
+        'We tailor recommendations to your culture, work schedule, and any medications you take with your doctor. The aim is sustainable habits you can keep, not a short crash diet that ends when life gets busy.',
+      ],
+    },
   },
   diabetes: {
     tagline: 'Meal planning that respects your medications and glucose patterns',
@@ -157,6 +173,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'You learn to self-correct portions when routines shift.',
       },
     ],
+    keywordSection: {
+      heading: 'Diabetes diet plan for better glucose control with Indian meals',
+      paragraphs: [
+        'A diabetes diet plan works best when it matches your real kitchen—staples like rice, millets, pulses, vegetables, and snacks you actually enjoy—while keeping portions and pairings aligned with your care team’s targets.',
+        'We explain carbs, protein, and fiber in plain language, offer low-GI swaps where helpful, and help you plan for festivals, dining out, and busy days so glucose management feels doable long term.',
+      ],
+    },
   },
   thyroid: {
     tagline: 'Supportive nutrition for energy, metabolism, and recovery',
@@ -207,6 +230,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'You keep a flexible template for travel and busy weeks.',
       },
     ],
+    keywordSection: {
+      heading: 'Thyroid diet support for energy, metabolism, and everyday meals',
+      paragraphs: [
+        'Nutrition for thyroid health is about consistent, nutrient-dense eating—enough protein, smart iron and mineral awareness, and routines that match your energy—not random elimination lists from the internet.',
+        'We align food timing with your medication schedule when relevant, help you fuel training or recovery days, and adjust the plan as your dose or symptoms change alongside your clinician.',
+      ],
+    },
   },
   pregnant: {
     tagline: 'Safe, trimester-aware nutrition for mother and baby',
@@ -257,6 +287,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'Planning for recovery and lactation nutrition if needed.',
       },
     ],
+    keywordSection: {
+      heading: 'Pregnancy diet plan for mother and baby with trimester-smart nutrition',
+      paragraphs: [
+        'A pregnancy diet plan should meet higher needs for protein, iron, folate, and calcium through familiar foods—while handling nausea, heartburn, and food safety in a calm, evidence-based way.',
+        'We work with your obstetrician’s guidance, respect vegetarian or cultural preferences, and prepare practical snacks and meals for when energy is low but nutrition still matters.',
+      ],
+    },
   },
   'weight-gain': {
     tagline: 'Healthy weight gain with structured calories and strength support',
@@ -307,6 +344,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'Maintenance calories once goal weight is reached.',
       },
     ],
+    keywordSection: {
+      heading: 'Weight gain diet plan with healthy calories and structured eating',
+      paragraphs: [
+        'A weight gain diet plan should add calories from nutrient-dense foods—extra portions, healthy fats, and protein—so you gain sustainably without relying only on junk or skipping vegetables.',
+        'We set realistic calorie targets, time meals around appetite and digestion, and align intake with strength training when you exercise, with weekly tweaks based on your trend and comfort.',
+      ],
+    },
   },
   hair: {
     tagline: 'Nutrients that support hair follicle health from the inside out',
@@ -357,6 +401,13 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'Habits that fit travel and work.',
       },
     ],
+    keywordSection: {
+      heading: 'Hair growth diet plan with protein, iron, and whole-food nutrition',
+      paragraphs: [
+        'Hair growth is influenced by protein, iron, vitamin D, and overall calorie adequacy. We map your usual diet to these needs and suggest meals and swaps that fit vegetarian or mixed eating patterns.',
+        'We stay within your doctor’s advice on labs and supplements, focus on food first, and pair nutrition with stress and sleep habits that also affect shedding and recovery.',
+      ],
+    },
   },
   'post-pregnancy': {
     tagline: 'Recovery, lactation, and gentle weight goals on your timeline',
@@ -407,5 +458,12 @@ export const serviceProgramDetails: Record<string, ServiceProgramDetail> = {
         description: 'Stable routine before aggressive fat loss.',
       },
     ],
+    keywordSection: {
+      heading: 'Post-pregnancy diet plan for healing, lactation, and gentle goals',
+      paragraphs: [
+        'After delivery, a post-pregnancy diet plan prioritizes recovery, hydration, and—if you breastfeed—enough calories and fluids for milk supply, without pressure to restrict aggressively in the fourth trimester.',
+        'When you are ready, we introduce small, sustainable changes for energy and gradual weight goals, coordinated with your doctor and tuned to sleep deprivation and real family schedules.',
+      ],
+    },
   },
 }

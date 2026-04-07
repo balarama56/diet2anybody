@@ -14,7 +14,10 @@ import {
   Heart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { programs } from '@/lib/data'
+import PricingCardsGrid, { PRICING_SECTION_BG } from '@/components/services/PricingCardsGrid'
+import { servicePricingTiers } from '@/lib/pricing-plans'
+import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 
 const planTypes = [
   {
@@ -143,82 +146,24 @@ export default function DietPlansPageContent() {
         </div>
       </section>
 
-      {/* Pricing Plans */}
-      <section className="py-20 bg-secondary/30">
+      {/* Pricing Plans — same tiers & price display as home */}
+      <section className="py-20" style={{ backgroundColor: PRICING_SECTION_BG }}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-16 text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
               Choose Your Plan
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-muted-foreground">
               All plans include personalized consultation and ongoing support from our expert team.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {programs.map((program, index) => (
-              <motion.div
-                key={program.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="relative"
-              >
-                {program.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                    <div className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-current" />
-                      Best Value
-                    </div>
-                  </div>
-                )}
-
-                <div className={`bg-card rounded-2xl p-8 shadow-sm border h-full flex flex-col ${
-                  program.popular 
-                    ? 'border-primary shadow-xl ring-2 ring-primary/20' 
-                    : 'border-border hover:border-primary/20'
-                } transition-all duration-300`}>
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
-                      {program.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">{program.duration}</p>
-                  </div>
-
-                  <div className="text-center mb-8">
-                    <span className="text-4xl font-bold text-foreground">{program.price}</span>
-                  </div>
-
-                  <ul className="space-y-4 mb-8 flex-grow">
-                    {program.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="h-3 w-3 text-primary" />
-                        </div>
-                        <span className="text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button 
-                    asChild 
-                    className={`w-full rounded-full ${
-                      program.popular ? '' : 'bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground'
-                    }`}
-                  >
-                    <Link href="/contact">Get Started</Link>
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <PricingCardsGrid tiers={servicePricingTiers} priceSuffix=" / month" />
         </div>
       </section>
 
@@ -251,7 +196,7 @@ export default function DietPlansPageContent() {
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Features</th>
                   <th className="text-center py-4 px-4 font-semibold text-foreground">Basic</th>
                   <th className="text-center py-4 px-4 font-semibold text-primary">Standard</th>
-                  <th className="text-center py-4 px-4 font-semibold text-foreground">Premium</th>
+                  <th className="text-center py-4 px-4 font-semibold text-foreground">Platinum</th>
                 </tr>
               </thead>
               <tbody>
@@ -340,20 +285,35 @@ export default function DietPlansPageContent() {
               Book a free consultation call with our nutritionist. We will understand your goals 
               and recommend the perfect plan for you.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
               <Button asChild size="lg" variant="secondary" className="rounded-full px-8">
-                <Link href="/contact">
+                <Link href={CONTACT_PAGE_PATH}>
                   Book Free Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button 
-                asChild 
-                size="lg" 
+              <Button
+                asChild
+                size="lg"
                 variant="outline"
                 className="rounded-full px-8 bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
-                <a href="tel:+919876543210">Call Us: +91 98765 43210</a>
+                <a href={CONTACT.phoneTel}>Call {CONTACT.phoneDisplay}</a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full border-0 bg-[#25D366] px-8 text-white hover:bg-[#20BD5A]"
+              >
+                <a
+                  href={CONTACT.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
+                >
+                  <WhatsAppIcon className="h-5 w-5 text-white" />
+                  WhatsApp
+                </a>
               </Button>
             </div>
           </motion.div>

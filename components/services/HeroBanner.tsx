@@ -8,6 +8,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Facebook, Instagram, Twitter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
 
 const heroEase = [0.16, 1, 0.3, 1] as const
 
@@ -115,7 +116,7 @@ export default function HeroBanner() {
                 className="mt-8 flex flex-wrap items-center gap-4"
               >
                 <Button asChild size="lg" variant="secondary" className="rounded-full px-8 shadow-lg">
-                  <Link href="/contact">Let&apos;s talk</Link>
+                  <Link href={CONTACT_PAGE_PATH}>Let&apos;s talk</Link>
                 </Button>
                 <div className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-1 backdrop-blur-sm">
                   <a

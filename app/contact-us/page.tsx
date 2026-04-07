@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
+import { SITE_ORIGIN } from '@/lib/services'
 import ContactPageContent from './ContactPageContent'
 
 export const metadata: Metadata = {
@@ -7,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Us | Diet2Anybody',
     description: 'Get in touch with Diet2Anybody. Book a free consultation with our expert dietitians.',
-    url: 'https://www.diet2anybody.com/contact',
+    url: `${SITE_ORIGIN}${CONTACT_PAGE_PATH}`,
   },
 }
 

@@ -15,7 +15,7 @@ import {
   Linkedin,
   Link as LinkIcon
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import BlogPostSidebar from '@/components/blog/BlogPostSidebar'
 
 interface BlogPost {
   slug: string
@@ -23,6 +23,8 @@ interface BlogPost {
   excerpt: string
   content: string
   image: string
+  /** When true, skip the large featured image below the hero (use inline IMAGE: in content instead). */
+  hideHeroImage?: boolean
   author: string
   date: string
   category: string
@@ -37,7 +39,7 @@ interface Props {
 export default function BlogPostContent({ post, relatedPosts }: Props) {
   const shareUrl = typeof window !== 'undefined' 
     ? window.location.href 
-    : `https://www.diet2anybody.com/blog/${post.slug}`
+    : `https://www.diet2anybody.com/${post.slug}`
 
   const shareLinks = [
     {
@@ -124,27 +126,29 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
         </div>
       </section>
 
-      {/* Featured Image */}
-      <section className="bg-background">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative -mt-8 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto"
-          >
-            <div className="relative aspect-video">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Featured Image (optional — some posts embed IMAGE: in article body instead) */}
+      {!post.hideHeroImage && (
+        <section className="bg-background">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative -mt-8 rounded-3xl overflow-hidden shadow-2xl max-w-4xl mx-auto"
+            >
+              <div className="relative aspect-video">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Content */}
       <section className="py-16 bg-background">
@@ -191,6 +195,22 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
               {/* Article Content */}
               <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground">
                 {post.content.split('\n\n').map((paragraph, idx) => {
+                  if (paragraph.startsWith('IMAGE:')) {
+                    const src = paragraph.slice('IMAGE:'.length).trim()
+                    return (
+                      <figure key={idx} className="my-8 not-prose mx-auto max-w-4xl">
+                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-muted/20 shadow-sm">
+                          <Image
+                            src={src}
+                            alt={post.title}
+                            fill
+                            className="object-contain p-1 sm:p-2"
+                            sizes="(max-width: 896px) 100vw, 896px"
+                          />
+                        </div>
+                      </figure>
+                    )
+                  }
                   if (paragraph.startsWith('## ')) {
                     return (
                       <h2 key={idx} className="text-2xl font-bold text-foreground mt-8 mb-4">
@@ -278,41 +298,14 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
               </div>
             </motion.article>
 
-            {/* Sidebar - Table of Contents / CTA */}
+            {/* Sidebar — consultation form, CTA, categories */}
             <motion.aside
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="lg:col-span-3"
             >
-              <div className="sticky top-32 space-y-6">
-                {/* CTA */}
-                <div className="bg-primary rounded-2xl p-6 text-primary-foreground">
-                  <h3 className="text-lg font-semibold mb-3">Need Personalized Advice?</h3>
-                  <p className="text-primary-foreground/80 text-sm mb-4">
-                    Get a customized diet plan from our expert nutritionists.
-                  </p>
-                  <Button asChild variant="secondary" className="w-full rounded-full">
-                    <Link href="/contact">Book Consultation</Link>
-                  </Button>
-                </div>
-
-                {/* Categories */}
-                <div className="bg-card rounded-2xl p-6 border border-border">
-                  <h3 className="font-semibold text-foreground mb-4">Categories</h3>
-                  <div className="space-y-2">
-                    {['Nutrition', 'Weight Loss', 'PCOS', 'Diabetes', 'Recipes'].map((cat) => (
-                      <Link
-                        key={cat}
-                        href={`/blog?category=${cat}`}
-                        className="block text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {cat}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <BlogPostSidebar articleTitle={post.title} />
             </motion.aside>
           </div>
         </div>
@@ -335,7 +328,7 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group"
                 >
-                  <Link href={`/blog/${relatedPost.slug}`}>
+                  <Link href={`/${relatedPost.slug}`}>
                     <div className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300">
                       <div className="relative h-48 overflow-hidden">
                         <Image

@@ -10,6 +10,9 @@ next.user-config.*
 # Environment variables
 .env*.local
 
+# Local Python venv (e.g. one-off rembg for hero assets)
+.venv-rembg/
+
 # Common ignores
 node_modules
 .next/

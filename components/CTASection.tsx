@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Phone, Calendar, ArrowRight } from 'lucide-react'
+import { Phone, Calendar } from 'lucide-react'
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { Button } from '@/components/ui/button'
+import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
 
 export default function CTASection() {
   return (
@@ -35,27 +37,42 @@ export default function CTASection() {
               happier you. Our expert dietitians are here to guide you every step of the way.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                asChild 
-                size="lg" 
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
+              <Button
+                asChild
+                size="lg"
                 variant="secondary"
                 className="rounded-full px-8 text-base"
               >
-                <Link href="/contact" className="flex items-center gap-2">
+                <Link href={CONTACT_PAGE_PATH} className="flex items-center gap-2">
                   <Calendar className="h-5 w-5" />
                   Book Free Consultation
                 </Link>
               </Button>
-              <Button 
-                asChild 
-                size="lg" 
+              <Button
+                asChild
+                size="lg"
                 variant="outline"
                 className="rounded-full px-8 text-base bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
-                <a href="tel:+919876543210" className="flex items-center gap-2">
+                <a href={CONTACT.phoneTel} className="flex items-center gap-2">
                   <Phone className="h-5 w-5" />
-                  Call Us Now
+                  Call {CONTACT.phoneDisplay}
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full border-0 bg-[#25D366] px-8 text-base text-white hover:bg-[#20BD5A]"
+              >
+                <a
+                  href={CONTACT.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <WhatsAppIcon className="h-5 w-5 text-white" />
+                  WhatsApp
                 </a>
               </Button>
             </div>

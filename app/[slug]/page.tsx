@@ -23,15 +23,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
+  const canonical = `https://www.diet2anybody.com/${post.slug}`
+
   return {
     title: post.title,
     description: post.excerpt,
     authors: [{ name: post.author }],
+    alternates: {
+      canonical,
+    },
     openGraph: {
       type: 'article',
       title: post.title,
       description: post.excerpt,
-      url: `https://www.diet2anybody.com/blog/${post.slug}`,
+      url: canonical,
       publishedTime: post.date,
       authors: [post.author],
       images: [

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, Mail, ChevronDown } from 'lucide-react'
+import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { Button } from '@/components/ui/button'
 import BrandLogo from '@/components/BrandLogo'
 import { services } from '@/lib/services'
@@ -11,7 +13,7 @@ import { cn } from '@/lib/utils'
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
+  { href: '/about-us', label: 'About Us' },
   {
     href: '/services',
     label: 'Services',
@@ -22,7 +24,7 @@ const navLinks = [
   },
   { href: '/pricing', label: 'Pricing' },
   { href: '/blog', label: 'Blog' },
-  { href: '/contact', label: 'Contact Us' },
+  { href: CONTACT_PAGE_PATH, label: 'Contact Us' },
 ] as const
 
 export default function Navbar() {
@@ -40,14 +42,23 @@ export default function Navbar() {
     <>
       <div className="hidden lg:block bg-primary text-primary-foreground py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div className="flex items-center gap-6">
-            <a href="tel:+918639137356" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <Phone className="h-4 w-4" />
-              <span>+91 86391 37356</span>
+          <div className="flex flex-wrap items-center gap-4 md:gap-6">
+            <a href={CONTACT.phoneTel} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Phone className="h-4 w-4 shrink-0" />
+              <span>{CONTACT.phoneDisplay}</span>
             </a>
-            <a href="mailto:alekhya@diet2anybody.com" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <Mail className="h-4 w-4" />
-              <span>alekhya@diet2anybody.com</span>
+            <a
+              href={CONTACT.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-1 text-xs font-semibold text-white hover:opacity-90"
+            >
+              <WhatsAppIcon className="h-3.5 w-3.5 text-white" />
+              WhatsApp
+            </a>
+            <a href={CONTACT.mailto} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Mail className="h-4 w-4 shrink-0" />
+              <span>{CONTACT.email}</span>
             </a>
           </div>
           <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
@@ -122,7 +133,7 @@ export default function Navbar() {
 
             <div className="hidden lg:block">
               <Button asChild className="rounded-full px-6">
-                <Link href="/contact">Book Consultation</Link>
+                <Link href={CONTACT_PAGE_PATH}>Book Consultation</Link>
               </Button>
             </div>
 
@@ -173,7 +184,7 @@ export default function Navbar() {
                   </div>
                 ))}
                 <Button asChild className="mt-4 rounded-full">
-                  <Link href="/contact" onClick={() => setIsOpen(false)}>
+                  <Link href={CONTACT_PAGE_PATH} onClick={() => setIsOpen(false)}>
                     Book Consultation
                   </Link>
                 </Button>

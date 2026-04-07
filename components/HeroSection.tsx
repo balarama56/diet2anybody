@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, CheckCircle, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
 
 const highlights = [
   'Personalized Diet Plans',
@@ -95,7 +96,7 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start"
             >
               <Button asChild size="lg" className="rounded-full px-8 text-base">
-                <Link href="/contact">
+                <Link href={CONTACT_PAGE_PATH}>
                   Start Your Journey
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

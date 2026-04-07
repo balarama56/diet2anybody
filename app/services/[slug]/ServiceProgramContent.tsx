@@ -1,35 +1,17 @@
 "use client"
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import {
-  Weight,
-  Venus,
-  Droplet,
-  ThermometerSun,
-  Dumbbell,
-  Milk,
-  ArrowRight,
-  CheckCircle,
-  Sparkles,
-} from 'lucide-react'
+import { ArrowRight, CheckCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import HairGrowthIcon from '@/components/icons/HairGrowthIcon'
-import PregnantWomanIcon from '@/components/icons/PregnantWomanIcon'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
 import type { ServiceItem } from '@/lib/services'
 import { serviceProgramDetails } from '@/lib/service-program-details'
 import { cn } from '@/lib/utils'
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Weight,
-  Venus,
-  Droplet,
-  ThermometerSun,
-  PregnantWoman: PregnantWomanIcon,
-  Dumbbell,
-  HairGrowth: HairGrowthIcon,
-  Milk,
-}
+import ServicePricingPlans from '@/components/services/ServicePricingPlans'
+import ProgramContactSection from '@/components/services/ProgramContactSection'
+import ServiceProgramFAQ from '@/components/services/ServiceProgramFAQ'
 
 type Props = {
   service: ServiceItem
@@ -37,7 +19,6 @@ type Props = {
 
 export default function ServiceProgramContent({ service }: Props) {
   const detail = serviceProgramDetails[service.id]
-  const Icon = iconMap[service.icon] || Weight
 
   if (!detail) {
     return (
@@ -59,7 +40,14 @@ export default function ServiceProgramContent({ service }: Props) {
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1fr_280px] lg:items-center">
+          <div
+            className={cn(
+              'mx-auto grid max-w-5xl gap-12 lg:items-center',
+              service.id === 'weight-loss'
+                ? 'lg:grid-cols-[1fr_minmax(280px,400px)]'
+                : 'lg:grid-cols-[1fr_280px]'
+            )}
+          >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,7 +63,7 @@ export default function ServiceProgramContent({ service }: Props) {
               <p className="mt-6 text-pretty text-lg text-muted-foreground">{detail.intro}</p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button asChild className="rounded-full px-8">
-                  <Link href="/contact">
+                  <Link href={CONTACT_PAGE_PATH}>
                     Book consultation
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -92,11 +80,30 @@ export default function ServiceProgramContent({ service }: Props) {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="flex justify-center lg:justify-end"
             >
-              <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-primary/10 md:h-40 md:w-40">
-                <Icon
+              <div
+                className={cn(
+                  'relative w-full overflow-hidden rounded-3xl',
+                  service.id === 'weight-loss'
+                    ? 'aspect-[820/948] max-w-[min(100%,400px)] border border-primary/15 bg-transparent shadow-none ring-0'
+                    : 'aspect-square max-w-[280px] border border-primary/15 bg-primary/5 shadow-md ring-1 ring-primary/10 md:max-w-[320px]'
+                )}
+              >
+                <Image
+                  src={service.heroImage}
+                  alt={
+                    service.id === 'weight-loss'
+                      ? 'Smiling woman showing weight loss success in oversized jeans, with illustrated silhouette outline'
+                      : service.title
+                  }
+                  fill
+                  priority
+                  sizes={
+                    service.id === 'weight-loss'
+                      ? '(max-width: 1024px) min(100vw - 2rem, 400px), 400px'
+                      : '(max-width: 1024px) min(100vw - 2rem, 320px), 320px'
+                  }
                   className={cn(
-                    'text-primary',
-                    service.id === 'pregnant' ? 'h-[4.5rem] w-[4.5rem]' : 'h-16 w-16 md:h-20 md:w-20'
+                    service.id === 'weight-loss' ? 'object-contain object-center' : 'object-cover'
                   )}
                 />
               </div>
@@ -134,8 +141,27 @@ export default function ServiceProgramContent({ service }: Props) {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="mx-auto mt-16 max-w-4xl border-t border-border pt-14"
+          >
+            <h2 className="text-balance text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+              {detail.keywordSection.heading}
+            </h2>
+            {detail.keywordSection.paragraphs.map((p, idx) => (
+              <p key={idx} className="mt-5 text-pretty leading-relaxed text-muted-foreground">
+                {p}
+              </p>
+            ))}
+          </motion.div>
         </div>
       </section>
+
+      <ServicePricingPlans />
 
       <section className="bg-secondary/30 py-16">
         <div className="container mx-auto px-4">
@@ -205,23 +231,9 @@ export default function ServiceProgramContent({ service }: Props) {
         </div>
       </section>
 
-      <section className="bg-primary py-16">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="mb-4 text-3xl font-bold text-primary-foreground md:text-4xl">Ready to start?</h2>
-            <p className="mx-auto mb-8 max-w-2xl text-primary-foreground/85">
-              Tell us your goals—we&apos;ll match you with the right plan and follow-up cadence.
-            </p>
-            <Button asChild size="lg" variant="secondary" className="rounded-full px-10">
-              <Link href="/contact">Book a consultation</Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
+      <ProgramContactSection />
+
+      <ServiceProgramFAQ />
     </>
   )
 }

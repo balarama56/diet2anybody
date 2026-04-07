@@ -9,28 +9,53 @@ import {
   Clock,
   Send,
   CheckCircle,
-  MessageCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { CONTACT } from '@/lib/contact'
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
+
+const contactFaqs = [
+  {
+    question: 'How do consultations work?',
+    answer:
+      'We offer both online and in-person consultations. Book a slot and our dietitian will review your health history, goals, and lifestyle—then create a personalized plan you can follow with confidence.',
+  },
+  {
+    question: 'Is the first consultation free?',
+    answer:
+      'Yes. Your first consultation is free and without obligation. We use it to understand your needs and recommend the best program for you.',
+  },
+  {
+    question: 'How do I book an appointment?',
+    answer:
+      'Use the contact form on this page, call or WhatsApp us, or email—we will confirm a time that works for you and send any prep steps before the session.',
+  },
+  {
+    question: 'Can I cancel or reschedule my appointment?',
+    answer:
+      'Yes. Please give us at least 24 hours notice when possible so we can offer the slot to someone else. Contact us by phone or WhatsApp to reschedule.',
+  },
+] as const
 
 const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    details: ['+91 98765 43210', '+91 98765 43211'],
-    link: 'tel:+919876543210',
+    details: [CONTACT.phoneDisplay],
+    link: CONTACT.phoneTel,
   },
   {
     icon: Mail,
     title: 'Email',
-    details: ['info@diet2anybody.com', 'support@diet2anybody.com'],
-    link: 'mailto:info@diet2anybody.com',
+    details: [CONTACT.email],
+    link: CONTACT.mailto,
   },
   {
     icon: MapPin,
     title: 'Address',
-    details: ['123 Health Street, Wellness Center', 'Mumbai, Maharashtra 400001'],
-    link: 'https://maps.google.com',
+    details: ['Miyapur, Hyderabad, India'],
+    link: 'https://www.google.com/maps/search/?api=1&query=Miyapur%2C+Hyderabad%2C+India',
   },
   {
     icon: Clock,
@@ -141,18 +166,19 @@ export default function ContactPageContent() {
       {/* Contact Form & Map */}
       <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-stretch">
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="flex min-h-0 flex-col lg:h-full"
             >
-              <div className="bg-card rounded-3xl p-8 md:p-10 shadow-lg border border-border">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              <div className="flex h-full min-h-0 flex-col rounded-3xl border border-border bg-card p-8 shadow-lg md:p-10">
+                <h2 className="mb-2 shrink-0 text-2xl font-bold text-foreground md:text-3xl">
                   Book a Free Consultation
                 </h2>
-                <p className="text-muted-foreground mb-8">
+                <p className="mb-8 shrink-0 text-muted-foreground">
                   Fill out the form below and our team will get back to you within 24 hours.
                 </p>
 
@@ -160,7 +186,7 @@ export default function ContactPageContent() {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
+                    className="flex flex-1 flex-col items-center justify-center py-12 text-center"
                   >
                     <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="h-10 w-10 text-primary" />
@@ -180,7 +206,7 @@ export default function ContactPageContent() {
                     </Button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -209,7 +235,7 @@ export default function ContactPageContent() {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                          placeholder="your@email.com"
+                          placeholder={CONTACT.email}
                         />
                       </div>
                     </div>
@@ -227,7 +253,7 @@ export default function ContactPageContent() {
                           onChange={handleChange}
                           required
                           className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                          placeholder="+91 98765 43210"
+                          placeholder={CONTACT.phoneDisplay}
                         />
                       </div>
                       <div>
@@ -253,8 +279,8 @@ export default function ContactPageContent() {
                       </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    <div className="flex min-h-0 flex-1 flex-col">
+                      <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
                         Your Message
                       </label>
                       <textarea
@@ -263,14 +289,14 @@ export default function ContactPageContent() {
                         value={formData.message}
                         onChange={handleChange}
                         rows={4}
-                        className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                        className="min-h-[7rem] w-full flex-1 resize-none rounded-xl border border-border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
                         placeholder="Tell us about your health goals..."
                       />
                     </div>
 
                     <Button 
                       type="submit" 
-                      className="w-full rounded-full py-6 text-base"
+                      className="mt-auto w-full shrink-0 rounded-full py-6 text-base"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
@@ -295,32 +321,29 @@ export default function ContactPageContent() {
               </div>
             </motion.div>
 
-            {/* Map & Additional Info */}
+            {/* Map & WhatsApp — stretches to match form column height */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-8"
+              className="flex min-h-0 flex-col gap-8 lg:h-full"
             >
-              {/* Map Placeholder */}
-              <div className="bg-card rounded-3xl overflow-hidden shadow-lg border border-border h-80">
+              <div className="relative flex min-h-[16rem] flex-1 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995709657!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1704067200000!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
+                  src="https://maps.google.com/maps?q=Miyapur%2C+Hyderabad%2C+India&output=embed&z=13"
+                  className="h-full min-h-[16rem] w-full border-0"
+                  title="Our Location"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Our Location"
                 />
               </div>
 
               {/* WhatsApp CTA */}
-              <div className="bg-primary rounded-3xl p-8 text-primary-foreground">
+              <div className="shrink-0 rounded-3xl bg-primary p-8 text-primary-foreground">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 bg-primary-foreground/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <MessageCircle className="h-7 w-7" />
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#25D366]/20">
+                    <WhatsAppIcon className="h-8 w-8 text-[#25D366]" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Quick Connect via WhatsApp</h3>
@@ -333,38 +356,46 @@ export default function ContactPageContent() {
                       variant="secondary"
                       className="rounded-full"
                     >
-                      <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                      <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">
                         Chat on WhatsApp
                       </a>
                     </Button>
                   </div>
                 </div>
               </div>
-
-              {/* FAQ Teaser */}
-              <div className="bg-card rounded-3xl p-8 shadow-sm border border-border">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
-                  Frequently Asked Questions
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium text-foreground">How do consultations work?</h4>
-                    <p className="text-muted-foreground text-sm mt-1">
-                      We offer both online and in-person consultations. Book a slot and our dietitian 
-                      will discuss your health goals and create a personalized plan.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-foreground">Is the first consultation free?</h4>
-                    <p className="text-muted-foreground text-sm mt-1">
-                      Yes! Your first consultation is completely free with no obligations. 
-                      We will discuss your needs and recommend the best program for you.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </div>
+
+          {/* FAQ — full width below form + map/WhatsApp (accordion, minimal) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            className="mt-12 lg:mt-16"
+          >
+            <div className="mx-auto max-w-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                Frequently Asked Questions
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
+                Quick answers about booking, consultations, and how we support you—reach out anytime if you need more
+                detail.
+              </p>
+              <Accordion type="single" collapsible className="mt-8 w-full border-t border-border">
+                {contactFaqs.map((faq, i) => (
+                  <AccordionItem key={faq.question} value={`contact-faq-${i}`} className="border-border">
+                    <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground hover:no-underline [&[data-state=open]]:text-foreground">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </motion.div>
         </div>
       </section>
     </>

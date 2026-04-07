@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
 import { cn } from '@/lib/utils'
 import { EASE_OUT, viewportOnce } from './animations'
 
@@ -12,14 +13,14 @@ const cards = [
     title: 'Nutritional Counseling',
     description: 'Deep-dive sessions to map goals, history, and a sustainable eating roadmap.',
     image: '/blog/balanced-diet.webp',
-    href: '/contact',
+    href: CONTACT_PAGE_PATH,
     accent: true,
   },
   {
     title: 'Weight Management',
     description: 'Steady fat loss or gain with Indian meals and portion strategies you can repeat.',
     image: '/blog/weight-loss.webp',
-    href: '/services/weight-loss',
+    href: '/services/indian-diet-plan-for-weight-loss',
     accent: false,
   },
   {

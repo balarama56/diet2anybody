@@ -45,7 +45,7 @@ export default function BlogPreview() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <Link href={`/blog/${post.slug}`}>
+              <Link href={`/${post.slug}`}>
                 <div className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">

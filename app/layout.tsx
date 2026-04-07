@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import WhatsAppFloat from '@/components/WhatsAppFloat'
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} font-sans antialiased`}>
         <Navbar />
         <main>{children}</main>
+        <WhatsAppFloat />
         <Footer />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

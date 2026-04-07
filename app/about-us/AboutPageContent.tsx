@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { CONTACT_PAGE_PATH } from '@/lib/contact'
 import StatsSection from '@/components/StatsSection'
 
 const values = [
@@ -93,7 +94,7 @@ export default function AboutPageContent() {
                 diet plans and continuous support.
               </p>
               <Button asChild className="rounded-full">
-                <Link href="/contact">
+                <Link href={CONTACT_PAGE_PATH}>
                   Start Your Journey
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -126,30 +127,97 @@ export default function AboutPageContent() {
       <StatsSection />
 
       {/* Our Story */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary/25">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center text-3xl font-bold text-foreground md:text-4xl"
+          >
+            Our Story
+          </motion.h2>
+
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="relative mx-auto max-w-md lg:mx-0"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Our Story</h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Diet2Anybody started in 2010 when our founder, Dr. Priya Sharma, realized that 
-                most people struggle with nutrition not because of lack of motivation, but because 
-                of lack of proper guidance. Cookie-cutter diet plans were failing people everywhere.
-              </p>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                We set out to change that by creating truly personalized nutrition programs that 
-                consider each individual&apos;s unique body, lifestyle, preferences, and health conditions. 
-                Today, we have helped over 5,000 clients achieve their health goals.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Our approach combines the latest nutrition science with practical, sustainable 
-                eating habits. We do not believe in extreme diets or quick fixes. Instead, we focus 
-                on building healthy relationships with food that last a lifetime.
-              </p>
+              <div
+                className="absolute -bottom-3 -left-3 -z-0 h-[78%] w-[88%] rounded-2xl rounded-br-[2.75rem] bg-primary/25"
+                aria-hidden
+              />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg ring-1 ring-border/60">
+                <Image
+                  src="/team/alekya.webp"
+                  alt="Dt. Alekya — Nutritionist, Health Coach, and Gut Health Consultant at Diet2Anybody"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 100vw, 420px"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="text-foreground"
+            >
+              <div className="mb-6 flex items-center gap-3">
+                <span className="h-px w-8 bg-orange-500" aria-hidden />
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-600">
+                  Who we are
+                </span>
+              </div>
+
+              <h3 className="text-balance text-2xl font-bold leading-tight text-foreground md:text-3xl lg:text-[1.65rem] lg:leading-snug">
+                We Care To Fill Up Your Nutrition Deficiency Of Health Balance
+              </h3>
+
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground">
+                <p>
+                  I&apos;m Alekya, a certified{' '}
+                  <strong className="font-semibold text-foreground">Nutritionist, Health Coach, and Gut Health Consultant</strong>{' '}
+                  with 8+ years of experience in transforming lifestyles through mindful eating and personalized
+                  nutrition plans.
+                </p>
+                <p>
+                  My core belief is simple — <strong className="font-semibold text-foreground">Food is the first medicine.</strong>{' '}
+                  Your <strong className="font-semibold text-foreground">Mind, Soul, and Body</strong> are connected, and the
+                  right nutrition keeps them in harmony.
+                </p>
+                <p>
+                  Diet is not a punishment. It&apos;s a{' '}
+                  <strong className="font-semibold text-foreground">daily habit that builds a healthier you.</strong>
+                </p>
+                <p>
+                  Join us at <strong className="font-semibold text-foreground">Diet2Anybody</strong> and start your journey
+                  toward better energy, better digestion, and a better life — one meal at a time.
+                </p>
+              </div>
+
+              <h4 className="mt-10 text-xl font-bold text-foreground md:text-2xl">
+                How We Keep The No.1 Position In Nutrition Coaching
+              </h4>
+              <ul className="mt-5 space-y-3">
+                {[
+                  'Personalized diet plans based on lifestyle, health goals & medical needs.',
+                  'Science-backed guidance for weight loss, gut health & holistic wellness.',
+                  'Constant support, progress tracking & mindset coaching.',
+                ].map((line) => (
+                  <li key={line} className="flex gap-3 text-muted-foreground">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                      <CheckCircle className="h-4 w-4 text-primary" />
+                    </span>
+                    <span className="leading-relaxed">{line}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </div>
@@ -274,7 +342,7 @@ export default function AboutPageContent() {
                 ))}
               </div>
               <Button asChild className="rounded-full mt-8">
-                <Link href="/contact">
+                <Link href={CONTACT_PAGE_PATH}>
                   Get Started Today
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
