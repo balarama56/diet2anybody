@@ -23,7 +23,7 @@ export const services: ServiceItem[] = [
       'Reach your weight goals with personalized Indian meal plans, expert guidance, and ongoing support from our dietitians.',
     icon: 'Weight',
     href: '/services/indian-diet-plan-for-weight-loss',
-    heroImage: '/services/indian-diet-plan-for-weight-loss-hero.webp',
+    heroImage: '/services/indian-diet-plan-for-weight-loss-hero.png',
   },
   {
     id: 'pcod',
