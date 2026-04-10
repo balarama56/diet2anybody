@@ -9,12 +9,12 @@ export const weightLossBlogPosts = [
     title: 'GM Diet Plan Chart for Weight Loss (7-Day Schedule)',
     excerpt:
       'A detailed GM Diet Plan chart for 7 days, Indian adaptations, safety tips, and how to transition to sustainable weight loss.',
-    image: '/blog/gm-diet-plan-chart-for-weight-loss-featured.webp',
+    image: '/images/blog/gm-diet-plan-chart-for-weight-loss-featured.webp',
     hideHeroImage: true,
     content: `
 If you are searching for a quick weight-loss kickstart, the GM Diet Plan often comes up. Here we explain what it is, how it works, whether it is safe, and how to adapt it with an Indian diet mindset.
 
-IMAGE:/blog/gm-diet-plan-chart-for-weight-loss-featured.webp
+IMAGE:/images/blog/gm-diet-plan-chart-for-weight-loss-featured.webp
 
 ## What Is the GM Diet Plan?
 
@@ -171,12 +171,12 @@ Listen to your body. Stop if symptoms are severe and seek medical advice. Small 
     title: 'Indian Food Diet Plan for Weight Loss: Meal Chart & Expert Tips',
     excerpt:
       'How an Indian food diet plan for weight loss works — balance, portions, a sample 7-day meal chart, and how it compares to the GM diet.',
-    image: '/blog/indian-food-diet-plan-for-weight-loss-featured.webp',
+    image: '/images/blog/indian-food-diet-plan-for-weight-loss-featured.webp',
     hideHeroImage: true,
     content: `
 Losing weight does not mean giving up favorite Indian foods. The Indian Food Diet Plan for Weight Loss focuses on balance: the right portions of healthy, home-cooked meals made with local ingredients. It is a sustainable lifestyle change that helps you lose weight while staying energetic.
 
-IMAGE:/blog/indian-food-diet-plan-for-weight-loss-featured.webp
+IMAGE:/images/blog/indian-food-diet-plan-for-weight-loss-featured.webp
 
 ## Why choose an Indian food diet plan for weight loss
 
@@ -247,6 +247,20 @@ Book a free diet consultation at /contact-us
 ## Key takeaway
 
 The Indian Food Diet Plan for Weight Loss works when it is built on natural, home-cooked food, portion control, and consistency. You can lose weight, feel more energetic, and keep your favorite Indian meals in the rotation — with smarter cooking and planning.
+
+## FAQ
+
+### How is an Indian food diet plan different from crash diets?
+
+It uses home-cooked balanced meals and portion awareness instead of extreme rules, so you can follow it for months.
+
+### Do I have to give up rice and roti?
+
+No. Portions, protein at each meal, fiber, and cooking methods matter more than eliminating staples entirely.
+
+### How fast can I expect to lose weight?
+
+Sustainable loss is often about 0.5–1 kg per week on average, but it varies by person, activity, and medical history—always follow professional advice for your case.
     `,
     author: 'Dt. Alekya',
     date: '2026-03-20',
@@ -258,12 +272,12 @@ The Indian Food Diet Plan for Weight Loss works when it is built on natural, hom
     title: 'Simple Indian Diet to Lose Weight Vegetarian Style',
     excerpt:
       'Plant-forward Indian meals for weight loss: benefits, a sample 7-day vegetarian plan, and practical tips without giving up flavor.',
-    image: '/blog/indian-diet-to-lose-weight-vegetarian-style-featured.webp',
+    image: '/images/blog/indian-diet-to-lose-weight-vegetarian-style-featured.webp',
     hideHeroImage: true,
     content: `
 If you want a diet to lose weight vegetarian style, Indian cuisine offers many healthy options that are light, balanced, and full of flavor. Whether you follow a vegetarian diet plan or want a plant-heavy Indian diet plan for weight loss, you can progress without giving up taste.
 
-IMAGE:/blog/indian-diet-to-lose-weight-vegetarian-style-featured.webp
+IMAGE:/images/blog/indian-diet-to-lose-weight-vegetarian-style-featured.webp
 
 ## What is a vegetarian diet for weight loss?
 
@@ -342,6 +356,20 @@ Combine fruits and vegetables through the day. Limit banana and potato if you wa
 ## Explore more on Diet2Anybody
 
 Read our Indian food diet plan for weight loss at /indian-food-diet-plan-for-weight-loss and book expert guidance at /contact-us
+
+## FAQ
+
+### Can I get enough protein on a vegetarian diet for weight loss?
+
+Yes, with pulses, dairy (if you eat it), paneer, tofu, millets, nuts, and seeds spread across meals.
+
+### Is ghee or oil allowed?
+
+Small amounts for tempering or cooking are fine; limit deep frying and very oily gravies if fat loss is the goal.
+
+### Do I need supplements?
+
+Some people may need B12, vitamin D, or iron after testing—confirm with your doctor or dietitian rather than guessing.
 
 ## Final thoughts
 

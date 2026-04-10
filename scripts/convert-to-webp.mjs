@@ -49,12 +49,8 @@ async function main() {
   const placeholder = 'placeholder.webp'
   const placeholderUser = 'placeholder-user.webp'
 
-  for (const name of [
-    'hero-dietitian.webp',
-    'weight-loss-hero.webp',
-    'about-team.webp',
-    'why-choose-us.webp',
-  ]) {
+  /** Real assets: generate about-team.webp / why-choose-us.webp from JPG in public/ — do not overwrite with placeholder. */
+  for (const name of ['hero-dietitian.webp', 'weight-loss-hero.webp']) {
     await copyWebp(placeholder, name, { width: 1200, height: 800 })
   }
 
@@ -68,7 +64,7 @@ async function main() {
   }
 
   for (const name of ['balanced-diet', 'pcos-diet', 'weight-loss']) {
-    await copyWebp(placeholder, `blog/${name}.webp`, { width: 800, height: 500 })
+    await copyWebp(placeholder, `images/blog/${name}.webp`, { width: 800, height: 500 })
   }
 }
 

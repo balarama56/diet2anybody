@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import BlogPostContent from './BlogPostContent'
 import { blogPosts } from '@/lib/data'
+import { SITE_ORIGIN } from '@/lib/services'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [post.author],
       images: [
         {
-          url: post.image,
+          url: `${SITE_ORIGIN}${post.image}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [`${SITE_ORIGIN}${post.image}`],
     },
   }
 }

@@ -12,6 +12,11 @@ export type ServiceItem = {
   href: string
   /** Hero image on the program page (`public` path) */
   heroImage: string
+  /**
+   * Landscape heroes use a wide 3:2 frame so ~2000×1333 art fills the card;
+   * portrait uses 4:5 for taller source images.
+   */
+  heroFrame?: 'portrait' | 'landscape'
 }
 
 export const services: ServiceItem[] = [
@@ -23,7 +28,7 @@ export const services: ServiceItem[] = [
       'Reach your weight goals with personalized Indian meal plans, expert guidance, and ongoing support from our dietitians.',
     icon: 'Weight',
     href: '/services/indian-diet-plan-for-weight-loss',
-    heroImage: '/services/indian-diet-plan-for-weight-loss-hero.png',
+    heroImage: '/services/indian-diet-plan-for-weight-loss-hero.webp',
   },
   {
     id: 'pcod',
@@ -33,7 +38,8 @@ export const services: ServiceItem[] = [
       'Manage PCOD and PCOS with balanced nutrition, insulin-smart meals, and steady support from our dietitians.',
     icon: 'Venus',
     href: '/services/diet-plan-for-pcod',
-    heroImage: '/blog/pcos-diet.webp',
+    heroImage: '/services/diet-plan-for-pcod-hero.webp',
+    heroFrame: 'landscape',
   },
   {
     id: 'diabetes',
@@ -44,6 +50,7 @@ export const services: ServiceItem[] = [
     icon: 'Droplet',
     href: '/services/diet-plan-for-diabetes',
     heroImage: '/services/diet-plan-for-diabetes-hero.webp',
+    heroFrame: 'landscape',
   },
   {
     id: 'thyroid',
@@ -53,7 +60,8 @@ export const services: ServiceItem[] = [
       'Support thyroid health with personalized meal plans and nutrition guidance aligned with your treatment.',
     icon: 'ThermometerSun',
     href: '/services/diet-for-thyroid-patients',
-    heroImage: '/why-choose-us.webp',
+    heroImage: '/services/diet-for-thyroid-patients-hero.webp',
+    heroFrame: 'landscape',
   },
   {
     id: 'pregnant',
@@ -93,7 +101,7 @@ export const services: ServiceItem[] = [
       'Recover after delivery with balanced meals, lactation-friendly options, and nutrition support from our dietitians.',
     icon: 'Milk',
     href: '/services/post-pregnancy-diet-plan',
-    heroImage: '/services/services-template-hero.webp',
+    heroImage: '/services/post-pregnancy-diet-plan-hero.webp',
   },
 ]
 

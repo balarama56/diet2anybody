@@ -16,6 +16,7 @@ import {
   Link as LinkIcon
 } from 'lucide-react'
 import BlogPostSidebar from '@/components/blog/BlogPostSidebar'
+import { BlogArticleBody } from '@/components/blog/BlogArticleBody'
 
 interface BlogPost {
   slug: string
@@ -91,15 +92,15 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-3xl"
+            className="max-w-4xl md:max-w-5xl"
           >
             {/* Category */}
             <span className="inline-block bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium mb-4">
               {post.category}
             </span>
 
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 text-balance">
+            {/* Title — wider measure so long titles wrap to ~2 lines on desktop */}
+            <h1 className="text-3xl font-bold leading-[1.12] tracking-tight text-foreground md:text-4xl md:leading-[1.12] lg:text-[2.625rem] lg:leading-[1.1] xl:text-5xl xl:leading-tight mb-6 text-balance">
               {post.title}
             </h1>
 
@@ -194,64 +195,7 @@ export default function BlogPostContent({ post, relatedPosts }: Props) {
             >
               {/* Article Content */}
               <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground">
-                {post.content.split('\n\n').map((paragraph, idx) => {
-                  if (paragraph.startsWith('IMAGE:')) {
-                    const src = paragraph.slice('IMAGE:'.length).trim()
-                    return (
-                      <figure key={idx} className="my-8 not-prose mx-auto max-w-4xl">
-                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-muted/20 shadow-sm">
-                          <Image
-                            src={src}
-                            alt={post.title}
-                            fill
-                            className="object-contain p-1 sm:p-2"
-                            sizes="(max-width: 896px) 100vw, 896px"
-                          />
-                        </div>
-                      </figure>
-                    )
-                  }
-                  if (paragraph.startsWith('## ')) {
-                    return (
-                      <h2 key={idx} className="text-2xl font-bold text-foreground mt-8 mb-4">
-                        {paragraph.replace('## ', '')}
-                      </h2>
-                    )
-                  }
-                  if (paragraph.startsWith('### ')) {
-                    return (
-                      <h3 key={idx} className="text-xl font-semibold text-foreground mt-6 mb-3">
-                        {paragraph.replace('### ', '')}
-                      </h3>
-                    )
-                  }
-                  if (paragraph.startsWith('- **')) {
-                    const items = paragraph.split('\n').filter(Boolean)
-                    return (
-                      <ul key={idx} className="list-disc pl-6 space-y-2 my-4">
-                        {items.map((item, i) => (
-                          <li key={i} className="text-muted-foreground">
-                            {item.replace('- **', '').replace('**', '')}
-                          </li>
-                        ))}
-                      </ul>
-                    )
-                  }
-                  if (paragraph.startsWith('**')) {
-                    return (
-                      <p key={idx} className="text-muted-foreground leading-relaxed my-4">
-                        <strong className="text-foreground">
-                          {paragraph.replace(/\*\*/g, '')}
-                        </strong>
-                      </p>
-                    )
-                  }
-                  return (
-                    <p key={idx} className="text-muted-foreground leading-relaxed my-4">
-                      {paragraph}
-                    </p>
-                  )
-                })}
+                <BlogArticleBody content={post.content} title={post.title} />
               </div>
 
               {/* Mobile Share */}

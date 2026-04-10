@@ -155,7 +155,7 @@ export default function HeroSection() {
                       <span className="text-2xl">🥗</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">5000+</p>
+                      <p className="font-semibold text-foreground">300+</p>
                       <p className="text-sm text-muted-foreground">Happy Clients</p>
                     </div>
                   </div>

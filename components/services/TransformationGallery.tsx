@@ -8,9 +8,9 @@ import { motion } from 'framer-motion'
 import { EASE_OUT, viewportOnce } from './animations'
 
 const images = [
-  { src: '/blog/balanced-diet.webp', alt: 'Balanced meals' },
-  { src: '/blog/weight-loss.webp', alt: 'Weight journey' },
-  { src: '/blog/pcos-diet.webp', alt: 'PCOS nutrition' },
+  { src: '/images/blog/balanced-diet.webp', alt: 'Balanced meals' },
+  { src: '/images/blog/weight-loss.webp', alt: 'Weight journey' },
+  { src: '/images/blog/pcos-diet.webp', alt: 'PCOS nutrition' },
   { src: '/hero-dietitian.webp', alt: 'Consultation' },
   { src: '/about-team.webp', alt: 'Team' },
   { src: '/why-choose-us.webp', alt: 'Wellness' },

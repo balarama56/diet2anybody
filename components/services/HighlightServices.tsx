@@ -12,14 +12,14 @@ const cards = [
   {
     title: 'Nutritional Counseling',
     description: 'Deep-dive sessions to map goals, history, and a sustainable eating roadmap.',
-    image: '/blog/balanced-diet.webp',
+    image: '/images/blog/balanced-diet.webp',
     href: CONTACT_PAGE_PATH,
     accent: true,
   },
   {
     title: 'Weight Management',
     description: 'Steady fat loss or gain with Indian meals and portion strategies you can repeat.',
-    image: '/blog/weight-loss.webp',
+    image: '/images/blog/weight-loss.webp',
     href: '/services/indian-diet-plan-for-weight-loss',
     accent: false,
   },
@@ -33,7 +33,7 @@ const cards = [
   {
     title: 'Nutrition Education',
     description: 'Labels, macros, and habits—so confidence lasts beyond the first consult.',
-    image: '/blog/pcos-diet.webp',
+    image: '/images/blog/pcos-diet.webp',
     href: '/blog',
     accent: false,
   },

@@ -114,7 +114,9 @@ export default function AboutPageContent() {
                     src="/about-team.webp"
                     alt="Our Team"
                     fill
-                    className="object-cover"
+                    sizes="(max-width: 1024px) min(100vw - 2rem, 448px), 448px"
+                    className="object-cover object-top"
+                    priority
                   />
                 </div>
               </div>
@@ -292,7 +294,8 @@ export default function AboutPageContent() {
                       src={member.image}
                       alt={member.name}
                       fill
-                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div className="p-6 text-center">
@@ -355,12 +358,13 @@ export default function AboutPageContent() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative aspect-video bg-primary/10 rounded-3xl overflow-hidden">
+              <div className="relative aspect-[3/2] w-full rounded-3xl overflow-hidden bg-muted ring-1 ring-border/40">
                 <Image
                   src="/why-choose-us.webp"
                   alt="Why Choose Diet2Anybody"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain object-top"
                 />
               </div>
             </motion.div>

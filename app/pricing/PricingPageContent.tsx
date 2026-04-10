@@ -40,7 +40,7 @@ export default function PricingPageContent() {
             <div className="mt-8 flex flex-wrap justify-center gap-6 text-foreground">
               <span className="inline-flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
-                5000+ clients
+                300+ clients
               </span>
               <span className="inline-flex items-center gap-2">
                 <Heart className="h-5 w-5 text-primary" />

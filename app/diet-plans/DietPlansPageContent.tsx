@@ -61,7 +61,7 @@ const guarantees = [
   {
     icon: Award,
     title: 'Expert Guidance',
-    description: 'Plans created by certified nutritionists with 15+ years experience.',
+    description: 'Plans created by certified nutritionists with 8+ years experience.',
   },
 ]
 
@@ -109,7 +109,7 @@ export default function DietPlansPageContent() {
             <div className="flex flex-wrap justify-center gap-4">
               <div className="flex items-center gap-2 text-foreground">
                 <Users className="h-5 w-5 text-primary" />
-                <span>5000+ Clients</span>
+                <span>300+ Clients</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">
                 <Star className="h-5 w-5 text-primary fill-primary" />

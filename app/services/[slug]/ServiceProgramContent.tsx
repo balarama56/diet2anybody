@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { CONTACT_PAGE_PATH } from '@/lib/contact'
 import type { ServiceItem } from '@/lib/services'
 import { serviceProgramDetails } from '@/lib/service-program-details'
-import { cn } from '@/lib/utils'
 import ServicePricingPlans from '@/components/services/ServicePricingPlans'
 import ProgramContactSection from '@/components/services/ProgramContactSection'
 import ServiceProgramFAQ from '@/components/services/ServiceProgramFAQ'
@@ -19,6 +18,8 @@ type Props = {
 
 export default function ServiceProgramContent({ service }: Props) {
   const detail = serviceProgramDetails[service.id]
+  const landscapeHero = service.heroFrame === 'landscape'
+  const thyroidHero = service.id === 'thyroid'
 
   if (!detail) {
     return (
@@ -40,14 +41,7 @@ export default function ServiceProgramContent({ service }: Props) {
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
-          <div
-            className={cn(
-              'mx-auto grid max-w-5xl gap-12 lg:items-center',
-              service.id === 'weight-loss'
-                ? 'lg:grid-cols-[1fr_minmax(280px,400px)]'
-                : 'lg:grid-cols-[1fr_280px]'
-            )}
-          >
+          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[1fr_minmax(320px,560px)] lg:items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -81,31 +75,44 @@ export default function ServiceProgramContent({ service }: Props) {
               className="flex justify-center lg:justify-end"
             >
               <div
-                className={cn(
-                  'relative w-full overflow-hidden rounded-3xl',
-                  service.id === 'weight-loss'
-                    ? 'aspect-[820/948] max-w-[min(100%,400px)] border border-primary/15 bg-transparent shadow-none ring-0'
-                    : 'aspect-square max-w-[280px] border border-primary/15 bg-primary/5 shadow-md ring-1 ring-primary/10 md:max-w-[320px]'
-                )}
+                className={
+                  landscapeHero
+                    ? 'relative mx-auto aspect-[3/2] w-full max-w-[min(100%,560px)] shrink-0 overflow-hidden rounded-3xl border border-border bg-background shadow-sm lg:mx-0 lg:ml-auto'
+                    : 'relative mx-auto aspect-[4/5] w-full max-w-[min(100%,480px)] shrink-0 overflow-hidden rounded-3xl border border-border bg-background shadow-sm lg:mx-0 lg:ml-auto'
+                }
               >
-                <Image
-                  src={service.heroImage}
-                  alt={
-                    service.id === 'weight-loss'
-                      ? 'Smiling woman showing weight loss success in oversized jeans, with illustrated silhouette outline'
-                      : service.title
-                  }
-                  fill
-                  priority
-                  sizes={
-                    service.id === 'weight-loss'
-                      ? '(max-width: 1024px) min(100vw - 2rem, 400px), 400px'
-                      : '(max-width: 1024px) min(100vw - 2rem, 320px), 320px'
-                  }
-                  className={cn(
-                    service.id === 'weight-loss' ? 'object-contain object-center' : 'object-cover'
-                  )}
-                />
+                {thyroidHero ? (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Image
+                      key={service.heroImage}
+                      src={service.heroImage}
+                      alt={`${service.title} — program hero`}
+                      width={2000}
+                      height={1333}
+                      priority
+                      sizes={
+                        landscapeHero
+                          ? '(max-width: 1024px) min(100vw - 2rem, 560px), 560px'
+                          : '(max-width: 1024px) min(100vw - 2rem, 480px), 480px'
+                      }
+                      className="max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    key={service.heroImage}
+                    src={service.heroImage}
+                    alt={`${service.title} — program hero`}
+                    fill
+                    priority
+                    sizes={
+                      landscapeHero
+                        ? '(max-width: 1024px) min(100vw - 2rem, 560px), 560px'
+                        : '(max-width: 1024px) min(100vw - 2rem, 480px), 480px'
+                    }
+                    className="object-contain object-center"
+                  />
+                )}
               </div>
             </motion.div>
           </div>
