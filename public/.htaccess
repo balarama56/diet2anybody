@@ -4,6 +4,9 @@
 DirectoryIndex index.html index.htm
 Options -Indexes
 
+# Custom 404 from Next.js static export (out/404.html)
+ErrorDocument 404 /404.html
+
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
 </IfModule>
