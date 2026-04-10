@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "hostinger": "next build",
     "start": "next start",
     "lint": "eslint .",
     "images:webp": "node scripts/convert-to-webp.mjs"

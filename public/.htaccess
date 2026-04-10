@@ -1,0 +1,9 @@
+# Static Next.js export — Hostinger (Apache)
+# Ensures index.html is served and directory listing stays off.
+
+DirectoryIndex index.html index.htm
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
