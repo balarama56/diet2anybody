@@ -6,12 +6,41 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, ArrowRight, Search } from 'lucide-react'
 import { blogPosts } from '@/lib/data'
+import { toast } from 'sonner'
+import { submitNewsletter } from '@/lib/submit-lead'
 
 const categories = ['All', 'Nutrition', 'Weight Loss', 'PCOS', 'Diabetes', 'Recipes']
 
 export default function BlogPageContent() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false)
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const email = newsletterEmail.trim()
+    if (!email) {
+      toast.error('Please enter your email address.')
+      return
+    }
+    setIsNewsletterSubmitting(true)
+    try {
+      await submitNewsletter({
+        source: 'newsletter',
+        email,
+        placement: 'blog',
+      })
+      setNewsletterEmail('')
+      toast.success("Thanks — you're subscribed.")
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : 'Could not subscribe. Please try again.'
+      )
+    } finally {
+      setIsNewsletterSubmitting(false)
+    }
+  }
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory
@@ -191,17 +220,25 @@ export default function BlogPageContent() {
               Get the latest health tips, recipes, and nutrition advice delivered straight 
               to your inbox every week.
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            >
               <input
                 type="email"
+                name="newsletter-email"
+                autoComplete="email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="flex-grow px-6 py-3 rounded-full bg-primary-foreground text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-foreground/50"
               />
               <button
                 type="submit"
-                className="px-8 py-3 rounded-full bg-foreground text-background font-medium hover:bg-foreground/90 transition-colors"
+                disabled={isNewsletterSubmitting}
+                className="px-8 py-3 rounded-full bg-foreground text-background font-medium hover:bg-foreground/90 transition-colors disabled:opacity-70"
               >
-                Subscribe
+                {isNewsletterSubmitting ? 'Sending…' : 'Subscribe'}
               </button>
             </form>
           </motion.div>

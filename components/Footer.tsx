@@ -18,6 +18,9 @@ import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { Button } from '@/components/ui/button'
 import BrandLogo from '@/components/BrandLogo'
 import { services } from '@/lib/services'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { submitNewsletter } from '@/lib/submit-lead'
 
 const footerLinks = {
   quickLinks: [
@@ -39,6 +42,34 @@ const socialLinks = [
 ]
 
 export default function Footer() {
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false)
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const email = newsletterEmail.trim()
+    if (!email) {
+      toast.error('Please enter your email address.')
+      return
+    }
+    setIsNewsletterSubmitting(true)
+    try {
+      await submitNewsletter({
+        source: 'newsletter',
+        email,
+        placement: 'footer',
+      })
+      setNewsletterEmail('')
+      toast.success("Thanks — you're subscribed.")
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : 'Could not subscribe. Please try again.'
+      )
+    } finally {
+      setIsNewsletterSubmitting(false)
+    }
+  }
+
   return (
     <footer className="bg-foreground text-background">
       {/* Newsletter Section */}
@@ -58,18 +89,26 @@ export default function Footer() {
                 Get the latest health tips and diet advice delivered to your inbox
               </p>
             </div>
-            <form className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto"
+            >
               <input
                 type="email"
+                name="newsletter-email"
+                autoComplete="email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="px-6 py-3 rounded-full bg-primary-foreground text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-foreground/50 w-full sm:w-80"
               />
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 variant="secondary"
+                disabled={isNewsletterSubmitting}
                 className="rounded-full px-8 whitespace-nowrap"
               >
-                Subscribe
+                {isNewsletterSubmitting ? 'Sending…' : 'Subscribe'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </form>

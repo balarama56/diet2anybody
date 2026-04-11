@@ -13,7 +13,23 @@ export type LeadPayload = {
   serviceTitle?: string
 }
 
+export type NewsletterPayload = {
+  source: 'newsletter'
+  email: string
+  placement: 'footer' | 'blog'
+}
+
 export async function submitLead(payload: LeadPayload): Promise<void> {
+  await postLeadApi(payload)
+}
+
+export async function submitNewsletter(payload: NewsletterPayload): Promise<void> {
+  await postLeadApi(payload)
+}
+
+async function postLeadApi(
+  payload: LeadPayload | NewsletterPayload
+): Promise<void> {
   const res = await fetch('/api/lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

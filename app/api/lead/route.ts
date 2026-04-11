@@ -3,6 +3,12 @@ import { Resend } from 'resend'
 import { z } from 'zod'
 import { LEAD_EMAIL_RECIPIENTS } from '@/lib/lead-recipients'
 
+const newsletterSchema = z.object({
+  source: z.literal('newsletter'),
+  email: z.string().trim().email().max(320),
+  placement: z.enum(['footer', 'blog']),
+})
+
 const leadSchema = z.object({
   name: z.string().trim().min(1).max(200),
   email: z.string().trim().email().max(320),
@@ -15,12 +21,34 @@ const leadSchema = z.object({
   serviceTitle: z.string().max(300).optional(),
 })
 
+const inboundSchema = z.union([newsletterSchema, leadSchema])
+
 function escapeHtml(s: string): string {
   return s
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+}
+
+function buildNewsletterEmailHtml(d: z.infer<typeof newsletterSchema>): string {
+  const rows: [string, string][] = [
+    ['Email', d.email],
+    ['Placement', d.placement === 'footer' ? 'Site footer' : 'Blog page'],
+    ['Source', 'Newsletter'],
+  ]
+  const tableRows = rows
+    .map(
+      ([k, v]) =>
+        `<tr><td style="padding:10px 12px;border:1px solid #e5e7eb;font-weight:600;background:#f9fafb">${escapeHtml(k)}</td><td style="padding:10px 12px;border:1px solid #e5e7eb">${escapeHtml(v)}</td></tr>`
+    )
+    .join('')
+
+  return `<!DOCTYPE html><html><body style="font-family:system-ui,-apple-system,sans-serif;line-height:1.5;color:#111827;">
+  <h2 style="margin:0 0 16px;">Newsletter signup — Diet2Anybody</h2>
+  <table style="border-collapse:collapse;width:100%;max-width:560px;">${tableRows}</table>
+  <p style="margin-top:20px;font-size:13px;color:#6b7280;">Reply to this email to reach ${escapeHtml(d.email)}.</p>
+  </body></html>`
 }
 
 function buildLeadEmailHtml(d: z.infer<typeof leadSchema>): string {
@@ -58,7 +86,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const parsed = leadSchema.safeParse(json)
+  const parsed = inboundSchema.safeParse(json)
   if (!parsed.success) {
     return NextResponse.json({ error: 'Please check your details and try again.' }, { status: 400 })
   }
@@ -78,14 +106,22 @@ export async function POST(request: Request) {
     'Diet2Anybody <onboarding@resend.dev>'
 
   const resend = new Resend(apiKey)
-  const subject = `New lead: ${data.name} (${data.source})`
+
+  const isNewsletter = data.source === 'newsletter'
+  const subject = isNewsletter
+    ? `Newsletter signup: ${data.email}`
+    : `New lead: ${data.name} (${data.source})`
+  const html = isNewsletter
+    ? buildNewsletterEmailHtml(data)
+    : buildLeadEmailHtml(data)
+  const replyTo = data.email
 
   const { error } = await resend.emails.send({
     from,
     to: [...LEAD_EMAIL_RECIPIENTS],
-    replyTo: data.email,
+    replyTo,
     subject,
-    html: buildLeadEmailHtml(data),
+    html,
   })
 
   if (error) {
