@@ -36,7 +36,10 @@ async function postLeadApi(
     body: JSON.stringify(payload),
   })
 
-  const data = (await res.json().catch(() => ({}))) as { error?: string }
+  const data = (await res.json().catch(() => ({}))) as {
+    error?: string
+    devMailSkipped?: boolean
+  }
 
   if (!res.ok) {
     throw new Error(
@@ -44,5 +47,14 @@ async function postLeadApi(
         ? data.error
         : 'Could not send your message. Please try again or call us.'
     )
+  }
+
+  if (data.devMailSkipped && typeof window !== 'undefined') {
+    const { toast } = await import('sonner')
+    toast.message('Saved locally (dev only)', {
+      description:
+        'SMTP is not set — no email was sent. Add SMTP_PASS to .env.local and restart the dev server to deliver mail.',
+      duration: 9000,
+    })
   }
 }

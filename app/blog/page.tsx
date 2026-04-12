@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { blogPosts } from '@/lib/data'
+import { blogIndexGraph } from '@/lib/schema-org'
 import BlogPageContent from './BlogPageContent'
 
 export const metadata: Metadata = {
@@ -12,5 +15,10 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
-  return <BlogPageContent />
+  return (
+    <>
+      <JsonLd data={blogIndexGraph(blogPosts)} />
+      <BlogPageContent />
+    </>
+  )
 }

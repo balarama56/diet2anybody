@@ -14,7 +14,9 @@ import {
   Heart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import PricingCardsGrid, { PRICING_SECTION_BG } from '@/components/services/PricingCardsGrid'
+import { dietPlansFaqs } from '@/lib/diet-plans-faqs'
 import { servicePricingTiers } from '@/lib/pricing-plans'
 import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
@@ -267,6 +269,37 @@ export default function DietPlansPageContent() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ — copy must stay in sync with lib/diet-plans-faqs.ts (JSON-LD) */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-3xl text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-muted-foreground">
+              Quick answers about our diet plans and how to get started.
+            </p>
+          </motion.div>
+          <Accordion type="single" collapsible className="mx-auto max-w-3xl w-full space-y-2">
+            {dietPlansFaqs.map((faq, i) => (
+              <AccordionItem key={faq.question} value={`diet-plans-faq-${i}`} className="border-border rounded-xl border px-4">
+                <AccordionTrigger className="text-left text-foreground hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 

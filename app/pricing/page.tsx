@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { faqs } from '@/lib/data'
+import { pricingPageGraph } from '@/lib/schema-org'
 import PricingPageContent from './PricingPageContent'
 
 export const metadata: Metadata = {
@@ -13,5 +16,10 @@ export const metadata: Metadata = {
 }
 
 export default function PricingPage() {
-  return <PricingPageContent />
+  return (
+    <>
+      <JsonLd data={pricingPageGraph(faqs)} />
+      <PricingPageContent />
+    </>
+  )
 }

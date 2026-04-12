@@ -13,32 +13,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { CONTACT } from '@/lib/contact'
+import { contactPageFaqs } from '@/lib/contact-page-faqs'
 import { submitLead } from '@/lib/submit-lead'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { toast } from 'sonner'
-
-const contactFaqs = [
-  {
-    question: 'How do consultations work?',
-    answer:
-      'We offer both online and in-person consultations. Book a slot and our dietitian will review your health history, goals, and lifestyle—then create a personalized plan you can follow with confidence.',
-  },
-  {
-    question: 'Is the first consultation free?',
-    answer:
-      'Yes. Your first consultation is free and without obligation. We use it to understand your needs and recommend the best program for you.',
-  },
-  {
-    question: 'How do I book an appointment?',
-    answer:
-      'Use the contact form on this page, call or WhatsApp us, or email—we will confirm a time that works for you and send any prep steps before the session.',
-  },
-  {
-    question: 'Can I cancel or reschedule my appointment?',
-    answer:
-      'Yes. Please give us at least 24 hours notice when possible so we can offer the slot to someone else. Contact us by phone or WhatsApp to reschedule.',
-  },
-] as const
 
 const contactInfo = [
   {
@@ -137,44 +115,7 @@ export default function ContactPageContent() {
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={info.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-lg hover:border-primary/20 transition-all duration-300"
-              >
-                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                  <info.icon className="h-7 w-7 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{info.title}</h3>
-                {info.details.map((detail, idx) => (
-                  info.link ? (
-                    <a 
-                      key={idx}
-                      href={info.link}
-                      className="block text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {detail}
-                    </a>
-                  ) : (
-                    <p key={idx} className="text-muted-foreground">{detail}</p>
-                  )
-                ))}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Map */}
+      {/* Contact Form & Map — first */}
       <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-stretch">
@@ -376,14 +317,54 @@ export default function ContactPageContent() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* FAQ — full width below form + map/WhatsApp (accordion, minimal) */}
+      {/* Phone, email, address, hours — second */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {contactInfo.map((info, index) => (
+              <motion.div
+                key={info.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                  <info.icon className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{info.title}</h3>
+                {info.details.map((detail, idx) => (
+                  info.link ? (
+                    <a 
+                      key={idx}
+                      href={info.link}
+                      className="block text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {detail}
+                    </a>
+                  ) : (
+                    <p key={idx} className="text-muted-foreground">{detail}</p>
+                  )
+                ))}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 lg:py-20 bg-secondary/30">
+        <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
-            className="mt-12 lg:mt-16"
           >
             <div className="mx-auto max-w-4xl">
               <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -394,7 +375,7 @@ export default function ContactPageContent() {
                 detail.
               </p>
               <Accordion type="single" collapsible className="mt-8 w-full border-t border-border">
-                {contactFaqs.map((faq, i) => (
+                {contactPageFaqs.map((faq, i) => (
                   <AccordionItem key={faq.question} value={`contact-faq-${i}`} className="border-border">
                     <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground hover:no-underline [&[data-state=open]]:text-foreground">
                       {faq.question}

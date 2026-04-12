@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import JsonLd from '@/components/JsonLd'
+import { faqs } from '@/lib/data'
+import { serviceProgramPageGraph } from '@/lib/schema-org'
 import { getServiceBySlug, services, SITE_ORIGIN } from '@/lib/services'
 import ServiceProgramContent from './ServiceProgramContent'
 
@@ -30,5 +33,10 @@ export default async function ServiceProgramPage({ params }: Props) {
   const { slug } = await params
   const service = getServiceBySlug(slug)
   if (!service) notFound()
-  return <ServiceProgramContent service={service} />
+  return (
+    <>
+      <JsonLd data={serviceProgramPageGraph(service, faqs)} />
+      <ServiceProgramContent service={service} />
+    </>
+  )
 }

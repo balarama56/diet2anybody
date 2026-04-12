@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { aboutPageGraph } from '@/lib/schema-org'
 import AboutPageContent from './AboutPageContent'
 
 export const metadata: Metadata = {
@@ -12,5 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  return <AboutPageContent />
+  return (
+    <>
+      <JsonLd data={aboutPageGraph()} />
+      <AboutPageContent />
+    </>
+  )
 }

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { servicesIndexGraph } from '@/lib/schema-org'
 import ServicesPageContent from './ServicesPageContent'
 
 export const metadata: Metadata = {
@@ -12,5 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default function ServicesPage() {
-  return <ServicesPageContent />
+  return (
+    <>
+      <JsonLd data={servicesIndexGraph()} />
+      <ServicesPageContent />
+    </>
+  )
 }

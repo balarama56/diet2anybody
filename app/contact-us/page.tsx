@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
 import { CONTACT_PAGE_PATH } from '@/lib/contact'
+import { contactPageGraph } from '@/lib/schema-org'
 import { SITE_ORIGIN } from '@/lib/services'
 import ContactPageContent from './ContactPageContent'
 
@@ -14,5 +16,10 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return <ContactPageContent />
+  return (
+    <>
+      <JsonLd data={contactPageGraph()} />
+      <ContactPageContent />
+    </>
+  )
 }

@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
-import { Resend } from 'resend'
 import { z } from 'zod'
-import { LEAD_EMAIL_RECIPIENTS } from '@/lib/lead-recipients'
+import { getLeadEmailRecipients } from '@/lib/lead-recipients'
+import {
+  getMissingSmtpEnv,
+  sendMailSmtp,
+  smtpIsConfigured,
+} from '@/lib/send-mail-smtp'
 
 const newsletterSchema = z.object({
   source: z.literal('newsletter'),
@@ -92,20 +96,30 @@ export async function POST(request: Request) {
   }
 
   const data = parsed.data
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey?.trim()) {
-    console.error('RESEND_API_KEY is not set')
+
+  if (!smtpIsConfigured()) {
+    const missing = getMissingSmtpEnv()
+    // Local dev: accept submission and log — no email until SMTP_PASS (etc.) is set
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(
+        '\n[api/lead] DEV — SMTP not configured (missing: %s). Submission logged; no email sent. Add SMTP_* to .env.local for real mail.\n',
+        missing.join(', ')
+      )
+      console.warn('[api/lead] Payload:', JSON.stringify(data, null, 2), '\n')
+      return NextResponse.json({ ok: true, devMailSkipped: true })
+    }
+
+    console.error(
+      'SMTP not configured. Missing:',
+      missing.join(', ') || '(unknown)'
+    )
     return NextResponse.json(
-      { error: 'Email is not configured on the server. Please contact us by phone.' },
+      {
+        error: `Set ${missing.join(', ')} in .env.local (Gmail: App Password at google.com/accounts). Restart npm run dev after saving.`,
+      },
       { status: 503 }
     )
   }
-
-  const from =
-    process.env.RESEND_FROM_EMAIL?.trim() ||
-    'Diet2Anybody <onboarding@resend.dev>'
-
-  const resend = new Resend(apiKey)
 
   const isNewsletter = data.source === 'newsletter'
   const subject = isNewsletter
@@ -116,17 +130,19 @@ export async function POST(request: Request) {
     : buildLeadEmailHtml(data)
   const replyTo = data.email
 
-  const { error } = await resend.emails.send({
-    from,
-    to: [...LEAD_EMAIL_RECIPIENTS],
-    replyTo,
-    subject,
-    html,
-  })
-
-  if (error) {
-    console.error('Resend error:', error)
-    return NextResponse.json({ error: 'Could not send email. Please try again later.' }, { status: 500 })
+  try {
+    await sendMailSmtp({
+      to: getLeadEmailRecipients(),
+      subject,
+      html,
+      replyTo,
+    })
+  } catch (e) {
+    console.error('SMTP send error:', e)
+    return NextResponse.json(
+      { error: 'Could not send email. Please try again later or contact us by phone.' },
+      { status: 500 }
+    )
   }
 
   return NextResponse.json({ ok: true })

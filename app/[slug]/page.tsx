@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import JsonLd from '@/components/JsonLd'
 import BlogPostContent from './BlogPostContent'
 import { blogPosts } from '@/lib/data'
+import { blogArticleGraph } from '@/lib/schema-org'
 import { SITE_ORIGIN } from '@/lib/services'
 
 interface Props {
@@ -70,5 +72,10 @@ export default async function BlogPostPage({ params }: Props) {
     .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 3)
 
-  return <BlogPostContent post={post} relatedPosts={relatedPosts} />
+  return (
+    <>
+      <JsonLd data={blogArticleGraph(post)} />
+      <BlogPostContent post={post} relatedPosts={relatedPosts} />
+    </>
+  )
 }

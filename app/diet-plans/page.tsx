@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+import { dietPlansFaqs } from '@/lib/diet-plans-faqs'
+import { dietPlansPageGraph } from '@/lib/schema-org'
 import DietPlansPageContent from './DietPlansPageContent'
 
 export const metadata: Metadata = {
@@ -12,5 +15,11 @@ export const metadata: Metadata = {
 }
 
 export default function DietPlansPage() {
-  return <DietPlansPageContent />
+  return (
+    <>
+      {/* Validate FAQ/WebPage rich results after deploy: https://search.google.com/test/rich-results */}
+      <JsonLd data={dietPlansPageGraph([...dietPlansFaqs])} />
+      <DietPlansPageContent />
+    </>
+  )
 }
