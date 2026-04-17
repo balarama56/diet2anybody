@@ -1,8 +1,13 @@
 # Static Next.js export — Hostinger (Apache)
-# Ensures index.html is served and directory listing stays off.
+#
+# Upload the ENTIRE contents of `out/` (including the `_next` folder). If `_next` is missing
+# or incomplete, the site will look unstyled (HTML only, no CSS/JS).
+#
+# Use `npm run build` (webpack) for production: chunk names stay Apache-safe. The default
+# Turbopack build can emit `~` in filenames, which some Apache setups mishandle.
 
 DirectoryIndex index.html index.htm
-Options -Indexes
+Options -Indexes -MultiViews
 
 # Custom 404 from Next.js static export (out/404.html)
 ErrorDocument 404 /404.html
