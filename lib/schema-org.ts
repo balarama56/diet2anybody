@@ -54,6 +54,14 @@ export function websiteNode() {
   }
 }
 
+/** Global graph for all pages (safe to include from root layout). */
+export function sitewideGraph() {
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@graph': [organizationNode(), websiteNode()],
+  }
+}
+
 export function webPageNode(path: string, name: string, description: string) {
   const url = `${SITE_ORIGIN}${path}`
   return {

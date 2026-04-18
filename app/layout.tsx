@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import JsonLd from '@/components/JsonLd'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import AppToaster from '@/components/AppToaster'
+import { sitewideGraph } from '@/lib/schema-org'
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -70,6 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans antialiased`}>
+        <JsonLd data={sitewideGraph()} />
         <Navbar />
         <main>{children}</main>
         <WhatsAppFloat />

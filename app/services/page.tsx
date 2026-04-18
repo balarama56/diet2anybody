@@ -4,11 +4,14 @@ import { servicesIndexGraph } from '@/lib/schema-org'
 import ServicesPageContent from './ServicesPageContent'
 
 export const metadata: Metadata = {
-  title: 'Our Services',
-  description: 'Explore our comprehensive nutrition and diet services including weight loss, PCOS management, diabetes diet, thyroid diet, and kids nutrition programs.',
+  title: 'Services - Weight Loss, PCOS, Diabetes, Thyroid & Specialized Diet Plans',
+  description:
+    'Services page: explore Diet2Anybody dietitian services including weight loss diet plans, PCOS diet plans, diabetes diet plans, thyroid nutrition, pregnancy, post-pregnancy, and hair growth support.',
   openGraph: {
-    title: 'Our Services | Diet2Anybody',
-    description: 'Explore our comprehensive nutrition and diet services including weight loss, PCOS management, diabetes diet, thyroid diet, and kids nutrition programs.',
+    title:
+      'Services | Diet2Anybody - Weight Loss, PCOS, Diabetes, Thyroid & Specialized Diet Plans',
+    description:
+      'Browse Diet2Anybody services for personalized nutrition: weight loss, PCOS, diabetes, thyroid, pregnancy, post-pregnancy, and more.',
     url: 'https://www.diet2anybody.com/services',
   },
 }

@@ -17,12 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = getServiceBySlug(slug)
   if (!service) return {}
   const ogImage = `${SITE_ORIGIN}${service.heroImage}`
+  const seoTitle = `${service.title} - Personalized Diet Plan`
+  const seoDescription = `${service.title} service page by Diet2Anybody. Get a personalized ${service.title.toLowerCase()} plan with practical meal guidance, regular follow-ups, and expert nutritionist support.`
   return {
-    title: service.title,
-    description: service.description,
+    title: seoTitle,
+    description: seoDescription,
     openGraph: {
-      title: `${service.title} | Diet2Anybody`,
-      description: service.description,
+      title: `${seoTitle} | Diet2Anybody`,
+      description: seoDescription,
       url: `${SITE_ORIGIN}${service.href}`,
       images: [{ url: ogImage, alt: service.title }],
     },
