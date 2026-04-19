@@ -5,6 +5,8 @@ export default function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
+      width={24}
+      height={24}
       className={cn('shrink-0', className)}
       aria-hidden
       xmlns="http://www.w3.org/2000/svg"

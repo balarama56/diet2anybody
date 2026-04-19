@@ -5,6 +5,7 @@ import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 export default function WhatsAppFloat() {
   return (
     <a
+      id="whatsapp-float-btn"
       href={CONTACT.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"

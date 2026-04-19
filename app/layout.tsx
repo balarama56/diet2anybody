@@ -9,6 +9,7 @@ import WhatsAppFloat from '@/components/WhatsAppFloat'
 import AppToaster from '@/components/AppToaster'
 import { sitewideGraph } from '@/lib/schema-org'
 
+import CriticalFallbackStyles from '@/components/CriticalFallbackStyles'
 import VercelAnalytics from '@/components/VercelAnalytics'
 
 const poppins = Poppins({
@@ -75,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans antialiased`}>
+        <CriticalFallbackStyles />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
