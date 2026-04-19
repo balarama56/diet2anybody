@@ -47,13 +47,13 @@ export default function HeroSection() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
             className="text-center lg:text-left"
           >
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
               className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary"
@@ -63,7 +63,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.08 }}
               className="text-balance text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl"
@@ -73,7 +73,7 @@ export default function HeroSection() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.12 }}
               className="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted-foreground lg:mx-0"
@@ -85,7 +85,7 @@ export default function HeroSection() {
 
             {/* Highlights */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.16 }}
               className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start"
@@ -100,7 +100,7 @@ export default function HeroSection() {
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.2 }}
               className="mt-10 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start"
@@ -123,7 +123,7 @@ export default function HeroSection() {
           {/* Image — no scroll-linked transforms (reduces main-thread work / forced layouts) */}
           <div className="relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
+              initial={false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="relative z-10"
@@ -141,7 +141,7 @@ export default function HeroSection() {
 
                 {/* Floating cards */}
                 <motion.div
-                  initial={{ opacity: 0, x: -40 }}
+                  initial={false}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.45, delay: 0.35 }}
                   className="absolute -left-4 top-1/4 rounded-2xl bg-card p-4 shadow-xl"
@@ -158,7 +158,7 @@ export default function HeroSection() {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, x: 40 }}
+                  initial={false}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.45, delay: 0.45 }}
                   className="absolute -right-4 bottom-1/4 rounded-2xl bg-card p-4 shadow-xl"

@@ -67,7 +67,7 @@ export default function Navbar() {
       </div>
 
       <motion.header
-        initial={{ y: -100 }}
+        initial={false}
         animate={{ y: 0 }}
         className={cn(
           'sticky top-0 z-50 transition-all duration-300',
