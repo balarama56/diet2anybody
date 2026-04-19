@@ -14,6 +14,13 @@ const staticPaths = [
   '/services',
 ] as const
 
+/** Matches `trailingSlash: true` export routes (`/page/`). */
+function siteUrl(path: string): string {
+  if (path === '/') return SITE_ORIGIN
+  const normalized = path.endsWith('/') ? path.slice(0, -1) : path
+  return `${SITE_ORIGIN}${normalized}/`
+}
+
 function blogLastModified(post: (typeof blogPosts)[number]): Date {
   if ('date' in post && typeof post.date === 'string') {
     return new Date(post.date)
@@ -25,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
   for (const path of staticPaths) {
-    const url = path === '/' ? SITE_ORIGIN : `${SITE_ORIGIN}${path}`
+    const url = siteUrl(path)
     entries.push({
       url,
       lastModified: new Date(),
@@ -36,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const post of blogPosts) {
     entries.push({
-      url: `${SITE_ORIGIN}/${post.slug}`,
+      url: siteUrl(`/${post.slug}`),
       lastModified: blogLastModified(post),
       changeFrequency: 'monthly',
       priority: 0.75,
@@ -45,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const s of services) {
     entries.push({
-      url: `${SITE_ORIGIN}${s.href}`,
+      url: siteUrl(s.href),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,

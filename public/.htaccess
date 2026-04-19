@@ -1,36 +1,26 @@
 # Static Next.js export — Hostinger (Apache)
 #
-# Upload the ENTIRE contents of `out/` (including the `_next` folder). If `_next` is missing
-# or incomplete, the site will look unstyled (HTML only, no CSS/JS).
-#
-# Use `npm run build` (webpack) for production: chunk names stay Apache-safe. The default
-# Turbopack build can emit `~` in filenames, which some Apache setups mishandle.
+# Upload the ENTIRE contents of `out/` (including the `_next` folder).
 
 DirectoryIndex index.html index.htm
 Options -Indexes -MultiViews
 
-# Custom 404 from Next.js static export (out/404.html)
 ErrorDocument 404 /404.html
-
-# Mark requests that hit fingerprinted Next bundles (safe to cache “forever” per filename).
-<IfModule mod_setenvif.c>
-  SetEnvIf Request_URI "_next/static/" NEXT_STATIC
-</IfModule>
 
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
 
-  # IMPORTANT: Never let browsers cache HTML long-term. After a deploy, old HTML can still
-  # point at removed JS/CSS chunk names → broken site / blank page until a hard refresh.
+  # Fresh HTML after deploys (avoid stale chunk references). Safe on all Apache builds.
   <FilesMatch "\.(?:html|htm)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
-  # Fingerprinted files under /_next/static/ — long cache is safe (new deploy = new filenames).
-  Header set Cache-Control "public, max-age=31536000, immutable" env=NEXT_STATIC
+  # Fingerprints live under /_next/static/ — filenames change each build.
+  <FilesMatch "\.(?:js|css|mjs|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
 
-  # Images, fonts, and non-Next assets (not already covered by NEXT_STATIC).
-  <FilesMatch "\.(?:js|css|mjs|woff2|webp|avif|png|jpe?g|gif|svg|ico)$">
-    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400" env=!NEXT_STATIC
+  <FilesMatch "\.(?:webp|avif|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
   </FilesMatch>
 </IfModule>
