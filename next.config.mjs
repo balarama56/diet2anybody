@@ -1,8 +1,14 @@
 const nextConfig = {
-  output: "export",
+  output: 'export',
   images: {
-    unoptimized: true
-  }
+    unoptimized: true,
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
 };
 
 export default nextConfig;

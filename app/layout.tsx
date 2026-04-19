@@ -1,18 +1,21 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import JsonLd from '@/components/JsonLd'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { ThemeProvider } from '@/components/theme-provider'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import AppToaster from '@/components/AppToaster'
 import { sitewideGraph } from '@/lib/schema-org'
 
-const poppins = Poppins({ 
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-poppins"
+import VercelAnalytics from '@/components/VercelAnalytics'
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -70,15 +73,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <JsonLd data={sitewideGraph()} />
-        <Navbar />
-        <main>{children}</main>
-        <WhatsAppFloat />
-        <Footer />
-        <AppToaster />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="diet2anybody-theme"
+        >
+          <JsonLd data={sitewideGraph()} />
+          <Navbar />
+          <main>{children}</main>
+          <WhatsAppFloat />
+          <Footer />
+          <AppToaster />
+          <VercelAnalytics />
+        </ThemeProvider>
       </body>
     </html>
   )

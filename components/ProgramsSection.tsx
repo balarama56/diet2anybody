@@ -1,12 +1,12 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import PricingCardsGrid, { PRICING_SECTION_BG } from '@/components/services/PricingCardsGrid'
+import PricingCardsGrid, { PRICING_SECTION_SURFACE_CLASS } from '@/components/services/PricingCardsGrid'
 import { servicePricingTiers } from '@/lib/pricing-plans'
 
 export default function ProgramsSection() {
   return (
-    <section className="py-20" style={{ backgroundColor: PRICING_SECTION_BG }}>
+    <section className={`py-20 ${PRICING_SECTION_SURFACE_CLASS}`}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

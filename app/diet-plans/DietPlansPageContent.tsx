@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import PricingCardsGrid, { PRICING_SECTION_BG } from '@/components/services/PricingCardsGrid'
+import PricingCardsGrid, { PRICING_SECTION_SURFACE_CLASS } from '@/components/services/PricingCardsGrid'
 import { dietPlansFaqs } from '@/lib/diet-plans-faqs'
 import { servicePricingTiers } from '@/lib/pricing-plans'
 import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
@@ -149,7 +149,7 @@ export default function DietPlansPageContent() {
       </section>
 
       {/* Pricing Plans — same tiers & price display as home */}
-      <section className="py-20" style={{ backgroundColor: PRICING_SECTION_BG }}>
+      <section className={`py-20 ${PRICING_SECTION_SURFACE_CLASS}`}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

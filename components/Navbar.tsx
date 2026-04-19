@@ -8,6 +8,7 @@ import { CONTACT, CONTACT_PAGE_PATH } from '@/lib/contact'
 import WhatsAppIcon from '@/components/icons/WhatsAppIcon'
 import { Button } from '@/components/ui/button'
 import BrandLogo from '@/components/BrandLogo'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { services } from '@/lib/services'
 import { cn } from '@/lib/utils'
 
@@ -131,20 +132,24 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center gap-1">
+              <ThemeToggle />
               <Button asChild className="rounded-full px-6">
                 <Link href={CONTACT_PAGE_PATH}>Book Consultation</Link>
               </Button>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            <div className="flex items-center gap-1 lg:hidden">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 text-foreground hover:text-primary transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
+            </div>
           </div>
         </div>
 

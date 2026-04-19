@@ -14,4 +14,12 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
+  # Default long cache for static extensions (must run before _next override below)
+  <FilesMatch "\.(?:js|css|mjs|woff2|webp|avif|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+  </FilesMatch>
+  # Fingerprinted Next chunks — wins over FilesMatch for these URLs (PSI cache score)
+  <If "%{REQUEST_URI} =~ m#/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
 </IfModule>

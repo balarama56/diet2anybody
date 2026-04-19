@@ -2,10 +2,16 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "chrome >= 92",
+    "edge >= 92",
+    "firefox >= 92",
+    "safari >= 15.4"
+  ],
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
-    "hostinger": "next build --webpack",
+    "build": "node scripts/hero-variants.mjs && next build --webpack && node scripts/inject-home-preloads.mjs",
+    "hostinger": "node scripts/hero-variants.mjs && next build --webpack && node scripts/inject-home-preloads.mjs",
     "start": "next start",
     "lint": "eslint .",
     "images:webp": "node scripts/convert-to-webp.mjs"

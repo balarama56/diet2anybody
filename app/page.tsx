@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import JsonLd from '@/components/JsonLd'
 import HeroSection from '@/components/HeroSection'
-import AboutHomeSection from '@/components/AboutHomeSection'
-import ServicesSection from '@/components/ServicesSection'
-import StatsSection from '@/components/StatsSection'
-import ProgramsSection from '@/components/ProgramsSection'
-import Testimonials from '@/components/Testimonials'
-import BlogPreview from '@/components/BlogPreview'
-import CTASection from '@/components/CTASection'
 import { homePageGraph } from '@/lib/schema-org'
+
+const AboutHomeSection = dynamic(() => import('@/components/AboutHomeSection'))
+const ServicesSection = dynamic(() => import('@/components/ServicesSection'))
+const StatsSection = dynamic(() => import('@/components/StatsSection'))
+const ProgramsSection = dynamic(() => import('@/components/ProgramsSection'))
+const Testimonials = dynamic(() => import('@/components/Testimonials'))
+const BlogPreview = dynamic(() => import('@/components/BlogPreview'))
+const CTASection = dynamic(() => import('@/components/CTASection'))
 
 export const metadata: Metadata = {
   title: 'Home - Personalized Diet Plans for Weight Loss, PCOS, Diabetes & Thyroid',

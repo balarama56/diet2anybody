@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import PricingCardsGrid, { PRICING_SECTION_BG } from '@/components/services/PricingCardsGrid'
+import PricingCardsGrid, { PRICING_SECTION_SURFACE_CLASS } from '@/components/services/PricingCardsGrid'
 import { faqs } from '@/lib/data'
 import { servicePricingTiers } from '@/lib/pricing-plans'
 
@@ -51,7 +51,7 @@ export default function PricingPageContent() {
         </div>
       </section>
 
-      <section className="py-20" style={{ backgroundColor: PRICING_SECTION_BG }}>
+      <section className={`py-20 ${PRICING_SECTION_SURFACE_CLASS}`}>
         <div className="container mx-auto px-4">
           <PricingCardsGrid tiers={servicePricingTiers} priceSuffix=" / month" />
         </div>

@@ -16,9 +16,6 @@ export type PricingCardTier = {
   features: string[]
 }
 
-const GREEN_DARK = '#2d5a27'
-const CHECK_CIRCLE = '#6b9b5a'
-
 const gridVariants = {
   hidden: {},
   visible: {
@@ -94,13 +91,18 @@ export default function PricingCardsGrid({
             transition: { type: 'spring', stiffness: 420, damping: 22 },
           }}
           className={cn(
-            'group relative flex h-full flex-col rounded-2xl bg-white p-8 text-left',
-            'shadow-[0_4px_24px_-6px_rgba(0,0,0,0.08)]',
-            'transition-shadow duration-300 ease-out',
-            'hover:shadow-[0_20px_40px_-12px_rgba(45,90,39,0.18)]',
-            tier.popular && 'border-2 shadow-[0_8px_28px_-8px_rgba(45,90,39,0.2)]'
+            'group relative flex h-full flex-col rounded-2xl border bg-card p-8 text-left text-card-foreground',
+            'shadow-md shadow-black/5 ring-1 ring-black/[0.06]',
+            'transition-[box-shadow,transform,border-color] duration-300 ease-out',
+            'hover:shadow-xl hover:shadow-black/10 hover:ring-black/[0.08]',
+            'dark:shadow-black/40 dark:ring-white/[0.08] dark:hover:shadow-black/50 dark:hover:ring-white/[0.12]',
+            tier.popular
+              ? cn(
+                  'border-primary border-2 shadow-lg shadow-primary/15 ring-primary/25',
+                  'bg-gradient-to-b from-primary/[0.12] via-card to-card dark:from-primary/[0.18]'
+                )
+              : 'border-border'
           )}
-          style={tier.popular ? { borderColor: GREEN_DARK } : undefined}
         >
           {tier.popular && (
             <motion.div
@@ -108,25 +110,26 @@ export default function PricingCardsGrid({
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ type: 'spring', stiffness: 500, damping: 24, delay: 0.2 }}
-              className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm"
-              style={{ backgroundColor: GREEN_DARK }}
+              className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-md"
             >
               <motion.span
                 animate={{ rotate: [0, 12, -12, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 4, ease: 'easeInOut' }}
                 aria-hidden
               >
-                <Star className="h-3.5 w-3.5 fill-white text-white" />
+                <Star className="h-3.5 w-3.5 fill-primary-foreground text-primary-foreground" />
               </motion.span>
               {popularBadgeLabel}
             </motion.div>
           )}
 
           <div className="mb-1">
-            <h3 className="text-lg font-bold text-foreground transition-colors duration-300 group-hover:text-[#2d5a27] md:text-xl">
+            <h3 className="text-xl font-extrabold tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-primary md:text-2xl dark:text-neutral-50">
               {tier.title}
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground">{tier.subtitle}</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+              {tier.subtitle}
+            </p>
           </div>
 
           <motion.p
@@ -134,11 +137,13 @@ export default function PricingCardsGrid({
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-[2rem]"
+            className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1"
           >
-            {tier.price}
+            <span className="text-4xl font-extrabold tabular-nums tracking-tight text-neutral-900 dark:text-neutral-50 md:text-[2.5rem]">
+              {tier.price}
+            </span>
             {priceSuffix ? (
-              <span className="ml-1 text-base font-medium text-muted-foreground">{priceSuffix}</span>
+              <span className="text-base font-semibold text-neutral-600 dark:text-neutral-400">{priceSuffix}</span>
             ) : null}
           </motion.p>
 
@@ -150,17 +155,20 @@ export default function PricingCardsGrid({
             className="mt-8 flex flex-1 flex-col gap-3"
           >
             {tier.features.map((f) => (
-              <motion.li key={f} variants={rowVariants} className="flex items-start gap-3 text-sm text-muted-foreground">
+              <motion.li
+                key={f}
+                variants={rowVariants}
+                className="flex items-start gap-3 text-[0.9375rem] leading-snug text-neutral-700 dark:text-neutral-300"
+              >
                 <motion.span
-                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
-                  style={{ backgroundColor: `${CHECK_CIRCLE}33` }}
-                  whileHover={{ scale: 1.15, backgroundColor: `${CHECK_CIRCLE}55` }}
+                  className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary dark:bg-primary/25"
+                  whileHover={{ scale: 1.12 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                   aria-hidden
                 >
-                  <Check className="h-3 w-3" strokeWidth={3} style={{ color: CHECK_CIRCLE }} />
+                  <Check className="h-3 w-3" strokeWidth={3} />
                 </motion.span>
-                <span className="leading-snug">{f}</span>
+                <span>{f}</span>
               </motion.li>
             ))}
           </motion.ul>
@@ -175,14 +183,14 @@ export default function PricingCardsGrid({
               href={CONTACT_PAGE_PATH}
               className={cn(
                 'relative block w-full rounded-full py-3.5 text-center text-sm font-semibold',
-                'transition-[background-color,color,box-shadow,border-color] duration-300 ease-out',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d5a27] focus-visible:ring-offset-2',
+                'transition-[background-color,color,box-shadow,border-color,transform] duration-300 ease-out',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                 tier.popular
-                  ? 'bg-[#2d5a27] text-white shadow-md hover:bg-[#1e4219] hover:shadow-lg active:bg-[#183515]'
+                  ? 'bg-primary text-primary-foreground shadow-md hover:bg-primary/90 hover:shadow-lg active:bg-primary/85'
                   : cn(
-                      'border border-[#2d5a27]/20 bg-[#e8f3e6] text-[#2d5a27] shadow-sm',
-                      'hover:border-[#2d5a27] hover:bg-[#2d5a27] hover:text-white hover:shadow-md',
-                      'active:bg-[#234a20] active:text-white'
+                      'border-2 border-primary/35 bg-background text-primary shadow-sm',
+                      'hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-md',
+                      'active:bg-primary/90 active:text-primary-foreground'
                     )
               )}
             >
@@ -195,5 +203,6 @@ export default function PricingCardsGrid({
   )
 }
 
-/** Mint background used by service pricing section */
-export const PRICING_SECTION_BG = '#f0f7ef'
+/** Mint band behind pricing cards — includes dark surface */
+export const PRICING_SECTION_SURFACE_CLASS =
+  'bg-[#eef6ec] dark:bg-gradient-to-b dark:from-muted/50 dark:to-background'
