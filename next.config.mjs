@@ -11,6 +11,30 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  async headers() {
+    return [
+      {
+        // HTML/document routes: always fetch fresh content.
+        source: '/((?!_next/static|_next/image|.*\\.[^/]+$).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, max-age=0',
+          },
+        ],
+      },
+      {
+        // Fingerprinted static assets: keep long immutable cache.
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

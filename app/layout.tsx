@@ -12,6 +12,9 @@ import { sitewideGraph } from '@/lib/schema-org'
 import CriticalFallbackStyles from '@/components/CriticalFallbackStyles'
 import VercelAnalytics from '@/components/VercelAnalytics'
 
+// Force fresh HTML generation to avoid stale edge/CDN page cache.
+export const revalidate = 0
+
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
